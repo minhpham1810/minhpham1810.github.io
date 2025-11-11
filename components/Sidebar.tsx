@@ -81,7 +81,12 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
     return Object.entries(structure).map(([name, item]) => {
       const fullPath = path ? `${path}/${name}` : name;
 
-      if (typeof item === "object" && item.type === "folder") {
+      if (
+        typeof item === "object" &&
+        item !== null &&
+        "type" in item &&
+        item.type === "folder"
+      ) {
         const isExpanded = expandedFolders.has(fullPath);
         return (
           <div key={fullPath}>
@@ -103,7 +108,7 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
             </div>
             {isExpanded && (
               <div className="ml-4">
-                {renderFileTree(item.children, fullPath)}
+                {renderFileTree((item as any).children, fullPath)}
               </div>
             )}
           </div>
