@@ -139,7 +139,7 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
             ) : (
               <VscChevronRight className="w-4 h-4 mr-1" />
             )}
-            <span className="text-sm font-semibold">MINH'S PORTFOLIO</span>
+            <span className="text-sm font-semibold">MINH&apos;S PORTFOLIO</span>
           </div>
           {expandedFolders.has("root") && (
             <div className="ml-2">{renderFileTree(fileStructure)}</div>

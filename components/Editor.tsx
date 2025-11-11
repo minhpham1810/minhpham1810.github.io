@@ -25,29 +25,7 @@ export default function Editor({
     Record<string, "code" | "preview" | "split">
   >({});
 
-  // Handle keyboard shortcut trigger
-  useEffect(() => {
-    if (previewTrigger && activeTab && isMarkdownFile(activeTab)) {
-      togglePreviewMode(activeTab);
-    }
-  }, [previewTrigger]);
-
-  // Initialize new markdown files to preview mode
-  useEffect(() => {
-    openTabs.forEach((tab) => {
-      if (isMarkdownFile(tab) && !(tab in previewMode)) {
-        setPreviewMode((prev) => ({ ...prev, [tab]: "preview" }));
-      }
-    });
-  }, [openTabs]);
-
-  const getPreviewMode = (tab: string) => {
-    // Default to preview for markdown files, code for others
-    if (tab in previewMode) {
-      return previewMode[tab];
-    }
-    return isMarkdownFile(tab) ? "preview" : "code";
-  };
+  const isMarkdownFile = (filename: string) => filename.endsWith(".md");
 
   const togglePreviewMode = (tab: string) => {
     const currentMode = getPreviewMode(tab);
@@ -59,6 +37,32 @@ export default function Editor({
         : "code";
     setPreviewMode({ ...previewMode, [tab]: nextMode });
   };
+
+  const getPreviewMode = (tab: string) => {
+    // Default to preview for markdown files, code for others
+    if (tab in previewMode) {
+      return previewMode[tab];
+    }
+    return isMarkdownFile(tab) ? "preview" : "code";
+  };
+
+  // Handle keyboard shortcut trigger
+  useEffect(() => {
+    if (previewTrigger && activeTab && isMarkdownFile(activeTab)) {
+      togglePreviewMode(activeTab);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewTrigger]);
+
+  // Initialize new markdown files to preview mode
+  useEffect(() => {
+    openTabs.forEach((tab) => {
+      if (isMarkdownFile(tab) && !(tab in previewMode)) {
+        setPreviewMode((prev) => ({ ...prev, [tab]: "preview" }));
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openTabs]);
 
   const handleCloseClick = (e: React.MouseEvent, tab: string) => {
     e.stopPropagation(); // Prevent tab from becoming active when closing
@@ -72,8 +76,6 @@ export default function Editor({
       onCloseTab(tab);
     }
   };
-
-  const isMarkdownFile = (filename: string) => filename.endsWith(".md");
 
   return (
     <div className="flex-1 flex flex-col bg-vscode-editor">

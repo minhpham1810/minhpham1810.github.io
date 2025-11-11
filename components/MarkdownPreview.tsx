@@ -141,6 +141,7 @@ export default function MarkdownPreview({
                 alt={alt}
                 className={`${widthStyle} h-auto rounded shadow-lg`}
                 style={inlineStyle}
+                // eslint-disable-next-line @next/next/no-img-element
               />
             </div>
           );
