@@ -188,7 +188,7 @@ FeelBit is a thoughtful mood-tracking app designed to help users explore and und
   // Handle PDF files
   if (content === "PDF_FILE") {
     const googleDriveUrl =
-      "https://drive.google.com/file/d/1ANIRSn_HkScB1Tqe1gk_hfot6rBM1Zrg/view?usp=sharing";
+      "https://drive.google.com/file/d/1tMKKSYtNc9AEvZylL3SqxlmogpqJROmX/view?usp=drive_link";
     return <PDFPreview googleDriveUrl={googleDriveUrl} />;
   }
 
