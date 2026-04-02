@@ -16,15 +16,14 @@ interface SidebarProps {
   onFileClick: (file: string) => void;
 }
 
-// Helper function to get file icon based on extension
 const getFileIcon = (fileName: string) => {
   if (fileName.endsWith(".md")) {
-    return <VscMarkdown className="w-4 h-4 mr-2 text-blue-400" />;
+    return <VscMarkdown className="w-4 h-4 mr-2 text-blue-400 shrink-0" />;
   }
   if (fileName.endsWith(".pdf")) {
-    return <VscFilePdf className="w-4 h-4 mr-2 text-red-400" />;
+    return <VscFilePdf className="w-4 h-4 mr-2 text-red-400 shrink-0" />;
   }
-  return <VscFile className="w-4 h-4 mr-2" />;
+  return <VscFile className="w-4 h-4 mr-2 shrink-0" />;
 };
 
 export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
@@ -64,6 +63,7 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
   const fileStructure = {
     "README.md": "file",
     "about.md": "file",
+    "experience.md": "file",
     "resume.pdf": "file",
     projects: {
       type: "folder",
@@ -71,6 +71,7 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
         "portfolio-website.md": "file",
         "SpotOn.md": "file",
         "FeelBit.md": "file",
+        "ecommerce-ml.md": "file",
       },
     },
     "skills.md": "file",
@@ -91,26 +92,31 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
         return (
           <div key={fullPath}>
             <div
-              className="flex items-center hover:bg-vscode-highlight cursor-pointer py-0.5 px-2"
+              className="flex items-center hover:bg-vscode-highlight cursor-pointer py-0.5 px-2 transition-colors duration-100"
               onClick={() => toggleFolder(fullPath)}
             >
               {isExpanded ? (
-                <VscChevronDown className="w-4 h-4 mr-1" />
+                <VscChevronDown className="w-4 h-4 mr-1 shrink-0" />
               ) : (
-                <VscChevronRight className="w-4 h-4 mr-1" />
+                <VscChevronRight className="w-4 h-4 mr-1 shrink-0" />
               )}
               {isExpanded ? (
-                <VscFolderOpened className="w-4 h-4 mr-2 text-yellow-500" />
+                <VscFolderOpened className="w-4 h-4 mr-2 text-yellow-500 shrink-0" />
               ) : (
-                <VscFolder className="w-4 h-4 mr-2 text-yellow-500" />
+                <VscFolder className="w-4 h-4 mr-2 text-yellow-500 shrink-0" />
               )}
               <span className="text-sm">{name}</span>
             </div>
-            {isExpanded && (
-              <div className="ml-4">
+            {/* Animated folder children with indent guide */}
+            <div
+              className={`overflow-hidden transition-all duration-200 ease-in-out ${
+                isExpanded ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+              }`}
+            >
+              <div className="ml-4 border-l border-vscode-border/20 pl-1">
                 {renderFileTree((item as any).children, fullPath)}
               </div>
-            )}
+            </div>
           </div>
         );
       }
@@ -118,7 +124,7 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
       return (
         <div
           key={fullPath}
-          className="flex items-center hover:bg-vscode-highlight cursor-pointer py-0.5 px-2 pl-6"
+          className="flex items-center hover:bg-vscode-highlight cursor-pointer py-0.5 px-2 pl-6 transition-colors duration-100"
           onClick={() => onFileClick(name)}
         >
           {getFileIcon(name)}
@@ -136,7 +142,7 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
         </div>
         <div className="mb-4">
           <div
-            className="flex items-center cursor-pointer py-0.5 px-2"
+            className="flex items-center cursor-pointer py-0.5 px-2 hover:bg-vscode-highlight transition-colors duration-100"
             onClick={() => toggleFolder("root")}
           >
             {expandedFolders.has("root") ? (
@@ -146,9 +152,17 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
             )}
             <span className="text-sm font-semibold">MINH&apos;S PORTFOLIO</span>
           </div>
-          {expandedFolders.has("root") && (
-            <div className="ml-2">{renderFileTree(fileStructure)}</div>
-          )}
+          <div
+            className={`overflow-hidden transition-all duration-200 ease-in-out ${
+              expandedFolders.has("root")
+                ? "max-h-screen opacity-100"
+                : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="ml-2">
+              {renderFileTree(fileStructure)}
+            </div>
+          </div>
         </div>
       </div>
     </div>

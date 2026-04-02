@@ -1,8 +1,9 @@
 "use client";
 
-import { VscClose, VscOpenPreview, VscCode } from "react-icons/vsc";
+import { VscClose, VscOpenPreview, VscCode, VscFile } from "react-icons/vsc";
 import { useState, useEffect } from "react";
 import FileContent from "./FileContent";
+import Breadcrumb from "./Breadcrumb";
 
 interface EditorProps {
   activeTab: string;
@@ -39,14 +40,12 @@ export default function Editor({
   };
 
   const getPreviewMode = (tab: string) => {
-    // Default to preview for markdown files, code for others
     if (tab in previewMode) {
       return previewMode[tab];
     }
     return isMarkdownFile(tab) ? "preview" : "code";
   };
 
-  // Handle keyboard shortcut trigger
   useEffect(() => {
     if (previewTrigger && activeTab && isMarkdownFile(activeTab)) {
       togglePreviewMode(activeTab);
@@ -54,7 +53,6 @@ export default function Editor({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [previewTrigger]);
 
-  // Initialize new markdown files to preview mode
   useEffect(() => {
     openTabs.forEach((tab) => {
       if (isMarkdownFile(tab) && !(tab in previewMode)) {
@@ -65,17 +63,24 @@ export default function Editor({
   }, [openTabs]);
 
   const handleCloseClick = (e: React.MouseEvent, tab: string) => {
-    e.stopPropagation(); // Prevent tab from becoming active when closing
+    e.stopPropagation();
     onCloseTab(tab);
   };
 
   const handleMiddleClick = (e: React.MouseEvent, tab: string) => {
-    // Middle mouse button (wheel click) to close tab, like in real VS Code
     if (e.button === 1) {
       e.preventDefault();
       onCloseTab(tab);
     }
   };
+
+  const quickOpenFiles = [
+    { name: "README.md", col: "start" },
+    { name: "about.md", col: "start" },
+    { name: "SpotOn.md", col: "recent" },
+    { name: "skills.md", col: "recent" },
+    { name: "contact.md", col: "recent" },
+  ];
 
   return (
     <div className="flex-1 flex flex-col bg-vscode-editor">
@@ -87,7 +92,7 @@ export default function Editor({
               return (
                 <div
                   key={tab}
-                  className={`flex items-center px-3 py-2 cursor-pointer border-r border-vscode-border min-w-fit group relative ${
+                  className={`flex items-center px-3 py-2 cursor-pointer border-r border-vscode-border min-w-fit group relative transition-colors duration-100 ${
                     isActive
                       ? "bg-vscode-tabActive border-t-2 border-t-vscode-statusBar"
                       : "bg-vscode-tabInactive hover:bg-vscode-highlight"
@@ -145,23 +150,79 @@ export default function Editor({
         </div>
       )}
 
+      {/* Breadcrumb */}
+      {activeTab && <Breadcrumb activeTab={activeTab} />}
+
       {/* Editor Content */}
       <div className="flex-1 overflow-auto">
         {activeTab ? (
-          <FileContent
-            filename={activeTab}
-            previewMode={
-              isMarkdownFile(activeTab) ? getPreviewMode(activeTab) : "code"
-            }
-            onFileClick={onFileClick}
-          />
+          <div key={activeTab} className="editor-fade-in h-full">
+            <FileContent
+              filename={activeTab}
+              previewMode={
+                isMarkdownFile(activeTab) ? getPreviewMode(activeTab) : "code"
+              }
+              onFileClick={onFileClick}
+            />
+          </div>
         ) : (
-          <div className="flex items-center justify-center h-full text-vscode-textMuted">
-            <div className="text-center">
-              <p className="text-2xl mb-2">No file open</p>
-              <p className="text-sm">
-                Select a file from the explorer to open it
-              </p>
+          <div className="flex items-center justify-center h-full bg-vscode-editor select-none relative overflow-hidden">
+            {/* Background watermark */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <span className="text-[18rem] font-bold text-white/[0.025] tracking-widest font-mono leading-none">
+                MP
+              </span>
+            </div>
+            {/* Foreground content */}
+            <div className="relative z-10 text-center max-w-md px-8">
+              <div className="text-4xl font-bold text-white/20 mb-1 font-mono tracking-wider">
+                Minh Pham
+              </div>
+              <div className="text-xs text-vscode-textMuted mb-10 tracking-widest uppercase">
+                Software Developer
+              </div>
+              <div className="grid grid-cols-2 gap-6 text-left mb-8">
+                <div>
+                  <p className="text-xs uppercase text-vscode-textMuted tracking-widest mb-3 font-semibold">
+                    Start
+                  </p>
+                  {quickOpenFiles
+                    .filter((f) => f.col === "start")
+                    .map((f) => (
+                      <button
+                        key={f.name}
+                        onClick={() => onFileClick?.(f.name)}
+                        className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors mb-2 w-full text-left"
+                      >
+                        <VscFile className="w-3.5 h-3.5 shrink-0" />
+                        <span>{f.name}</span>
+                      </button>
+                    ))}
+                </div>
+                <div>
+                  <p className="text-xs uppercase text-vscode-textMuted tracking-widest mb-3 font-semibold">
+                    Recent
+                  </p>
+                  {quickOpenFiles
+                    .filter((f) => f.col === "recent")
+                    .map((f) => (
+                      <button
+                        key={f.name}
+                        onClick={() => onFileClick?.(f.name)}
+                        className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors mb-2 w-full text-left"
+                      >
+                        <VscFile className="w-3.5 h-3.5 shrink-0" />
+                        <span>{f.name}</span>
+                      </button>
+                    ))}
+                </div>
+              </div>
+              <div className="border-t border-vscode-border/50 pt-5 text-xs text-vscode-textMuted">
+                <kbd className="bg-vscode-activityBar border border-vscode-border px-1.5 py-0.5 rounded font-mono">
+                  Ctrl+P
+                </kbd>
+                <span className="ml-2">to open any file</span>
+              </div>
             </div>
           </div>
         )}

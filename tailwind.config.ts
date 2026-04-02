@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "Courier New", "monospace"],
+      },
       colors: {
         vscode: {
           bg: "#1e1e1e",
@@ -21,6 +25,10 @@ const config: Config = {
           tabActive: "#1e1e1e",
           tabInactive: "#2d2d2d",
           highlight: "#264f78",
+          type: "#4ec9b0",
+          function: "#dcdcaa",
+          parameter: "#9cdcfe",
+          string: "#ce9178",
         },
       },
     },

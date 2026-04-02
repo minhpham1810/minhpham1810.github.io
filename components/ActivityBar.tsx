@@ -30,22 +30,29 @@ export default function ActivityBar({
     <div className="w-12 bg-vscode-activityBar flex flex-col items-center py-2 border-r border-vscode-border">
       {items.map((item) => {
         const Icon = item.icon;
+        const isActive = activeItem === item.id;
         return (
           <button
             key={item.id}
             onClick={() => onItemClick(item.id)}
-            className={`w-12 h-12 flex items-center justify-center hover:bg-vscode-highlight transition-colors ${
-              activeItem === item.id ? "border-l-2 border-vscode-statusBar" : ""
+            className={`group w-12 h-12 flex items-center justify-center hover:bg-vscode-highlight transition-all duration-150 ${
+              isActive ? "border-l-2 border-vscode-statusBar" : ""
             }`}
             title={item.label}
           >
-            <Icon className="w-6 h-6" />
+            <Icon
+              className={`w-6 h-6 transition-opacity duration-150 ${
+                isActive
+                  ? "opacity-100"
+                  : "opacity-60 group-hover:opacity-100"
+              }`}
+            />
           </button>
         );
       })}
       <div className="flex-1" />
-      <button className="w-12 h-12 flex items-center justify-center hover:bg-vscode-highlight transition-colors">
-        <VscAccount className="w-6 h-6" />
+      <button className="group w-12 h-12 flex items-center justify-center hover:bg-vscode-highlight transition-all duration-150">
+        <VscAccount className="w-6 h-6 opacity-60 group-hover:opacity-100 transition-opacity duration-150" />
       </button>
     </div>
   );

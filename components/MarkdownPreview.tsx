@@ -31,9 +31,14 @@ export default function MarkdownPreview({
           elements.push(
             <div
               key={i}
-              className="my-4 bg-vscode-activityBar rounded p-4 overflow-x-auto"
+              className="my-6 bg-[#1a1a1a] border border-vscode-border rounded-md overflow-x-auto relative"
             >
-              <pre className="text-base">
+              {codeBlockLanguage && (
+                <span className="absolute top-2 right-3 text-xs text-vscode-textMuted font-mono uppercase tracking-wider">
+                  {codeBlockLanguage}
+                </span>
+              )}
+              <pre className="p-5 text-sm">
                 <code className="text-green-400">
                   {codeBlockContent.join("\n")}
                 </code>
@@ -57,7 +62,10 @@ export default function MarkdownPreview({
       // Headers
       if (line.startsWith("# ")) {
         elements.push(
-          <h1 key={i} className="text-4xl font-bold mb-4 mt-6 text-white">
+          <h1
+            key={i}
+            className="text-3xl font-bold leading-tight tracking-tight border-b border-vscode-border pb-3 mb-6 mt-8 text-[#4ec9b0]"
+          >
             {line.slice(2)}
           </h1>
         );
@@ -65,21 +73,29 @@ export default function MarkdownPreview({
         elements.push(
           <h2
             key={i}
-            className="text-3xl font-bold mb-3 mt-5 text-white border-b border-vscode-border pb-2"
+            className="text-2xl font-semibold border-b border-vscode-border pb-2 mb-4 mt-7 text-[#dcdcaa]"
           >
             {line.slice(3)}
           </h2>
         );
       } else if (line.startsWith("### ")) {
         elements.push(
-          <h3 key={i} className="text-2xl font-bold mb-2 mt-4 text-white">
+          <h3
+            key={i}
+            className="text-xl font-semibold mb-3 mt-5 text-[#9cdcfe]"
+          >
             {line.slice(4)}
           </h3>
         );
       }
       // Horizontal rule
       else if (line === "---" || line === "***") {
-        elements.push(<hr key={i} className="my-6 border-vscode-border" />);
+        elements.push(
+          <div
+            key={i}
+            className="my-8 h-px bg-gradient-to-r from-transparent via-vscode-border to-transparent"
+          />
+        );
       }
       // Video (standalone on its own line) - format: ![video](filename.mp4)
       // MUST come before image parsing to avoid being caught by the image regex
@@ -152,7 +168,7 @@ export default function MarkdownPreview({
         elements.push(
           <blockquote
             key={i}
-            className="border-l-4 border-blue-500 pl-4 py-2 my-3 italic text-gray-300 text-base"
+            className="border-l-4 border-[#007acc] pl-4 py-3 my-4 bg-[#1e3a5f]/20 rounded-r text-vscode-textMuted italic leading-relaxed"
           >
             {parseInlineMarkdown(line.slice(2))}
           </blockquote>
@@ -163,14 +179,15 @@ export default function MarkdownPreview({
         const listItems: JSX.Element[] = [];
         while (i < lines.length && lines[i].match(/^[\-\*]\s/)) {
           listItems.push(
-            <li key={i} className="ml-6 mb-1 text-base">
-              {parseInlineMarkdown(lines[i].slice(2))}
+            <li key={i} className="ml-4 pl-1 mb-1 flex items-start gap-2 text-[15px] leading-7">
+              <span className="text-vscode-statusBar mt-2 text-[8px] shrink-0">▸</span>
+              <span>{parseInlineMarkdown(lines[i].slice(2))}</span>
             </li>
           );
           i++;
         }
         elements.push(
-          <ul key={`ul-${i}`} className="list-disc my-3">
+          <ul key={`ul-${i}`} className="list-none my-4 space-y-0.5">
             {listItems}
           </ul>
         );
@@ -202,7 +219,7 @@ export default function MarkdownPreview({
       // Regular paragraph
       else {
         elements.push(
-          <p key={i} className="mb-3 leading-relaxed text-base">
+          <p key={i} className="mb-4 leading-7 text-[15px] text-[#d4d4d4]">
             {parseInlineMarkdown(line)}
           </p>
         );
@@ -224,7 +241,7 @@ export default function MarkdownPreview({
       parts.push(
         <code
           key={`code-${key++}`}
-          className="bg-vscode-activityBar px-1.5 py-0.5 rounded text-sm text-orange-300"
+          className="bg-[#1a1a1a] border border-vscode-border/50 px-1.5 py-0.5 rounded text-[13px] text-[#ce9178] font-mono"
         >
           {content}
         </code>
@@ -335,7 +352,7 @@ export default function MarkdownPreview({
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto prose prose-invert text-lg">
+    <div className="px-10 py-8 max-w-3xl mx-auto text-vscode-text">
       {renderMarkdown()}
     </div>
   );

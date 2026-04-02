@@ -109,7 +109,7 @@ export default function VSCodeWindow() {
           onFileClick={handleFileClick}
         />
       </div>
-      <StatusBar />
+      <StatusBar activeTab={activeTab} />
     </div>
   );
 }
