@@ -18,6 +18,12 @@ export default function VSCodeWindow() {
   const [terminalHeight, setTerminalHeight] = useState(200);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [paletteMode, setPaletteMode] = useState<"files" | "commands">("files");
+  const [findOpen, setFindOpen] = useState(false);
+  const [findQuery, setFindQuery] = useState("");
+  const [findCase, setFindCase] = useState(false);
+  const [findRegex, setFindRegex] = useState(false);
+  const [findMatchCount, setFindMatchCount] = useState(0);
+  const [findActiveMatch, setFindActiveMatch] = useState(0);
   const isResizing = useRef(false);
 
   const handleFileClick = (file: string) => {
@@ -69,6 +75,26 @@ export default function VSCodeWindow() {
         return;
       }
 
+      if (e.ctrlKey && e.key === "f") {
+        e.preventDefault();
+        setFindOpen(true);
+        return;
+      }
+      if (e.key === "Escape") {
+        if (paletteOpen) {
+          setPaletteOpen(false);
+          return;
+        }
+        if (findOpen) {
+          setFindOpen(false);
+          return;
+        }
+        if (terminalOpen) {
+          setTerminalOpen(false);
+          return;
+        }
+      }
+
       // Ctrl+W or Cmd+W to close current tab
       if ((e.ctrlKey || e.metaKey) && e.key === "w") {
         e.preventDefault();
@@ -116,7 +142,7 @@ export default function VSCodeWindow() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab, openTabs]);
+  }, [activeTab, openTabs, paletteOpen, findOpen, terminalOpen]);
 
   function startResize(e: ReactMouseEvent) {
     e.preventDefault();
@@ -169,6 +195,25 @@ export default function VSCodeWindow() {
             onCloseTab={handleCloseTab}
             previewTrigger={previewTrigger}
             onFileClick={handleFileClick}
+            findOpen={findOpen}
+            findQuery={findQuery}
+            findCase={findCase}
+            findRegex={findRegex}
+            findActiveMatch={findActiveMatch}
+            findMatchCount={findMatchCount}
+            onFindMatchCountChange={(n) => {
+              setFindMatchCount(n);
+              setFindActiveMatch(0);
+            }}
+            onFindClose={() => setFindOpen(false)}
+            onFindChange={(q) => {
+              setFindQuery(q);
+              setFindActiveMatch(0);
+            }}
+            onFindNext={() => setFindActiveMatch((i) => (findMatchCount > 0 ? (i + 1) % findMatchCount : 0))}
+            onFindPrev={() => setFindActiveMatch((i) => (findMatchCount > 0 ? (i - 1 + findMatchCount) % findMatchCount : 0))}
+            onFindToggleCase={() => setFindCase((p) => !p)}
+            onFindToggleRegex={() => setFindRegex((p) => !p)}
           />
           {terminalOpen && (
             <div

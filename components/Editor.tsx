@@ -4,6 +4,7 @@ import { VscClose, VscOpenPreview, VscCode, VscFile } from "react-icons/vsc";
 import { useState, useEffect } from "react";
 import FileContent from "./FileContent";
 import Breadcrumb from "./Breadcrumb";
+import FindPanel from "./FindPanel";
 
 interface EditorProps {
   activeTab: string;
@@ -12,6 +13,19 @@ interface EditorProps {
   onCloseTab: (tab: string) => void;
   previewTrigger?: number;
   onFileClick?: (file: string) => void;
+  findOpen?: boolean;
+  findQuery?: string;
+  findCase?: boolean;
+  findRegex?: boolean;
+  findActiveMatch?: number;
+  findMatchCount?: number;
+  onFindMatchCountChange?: (n: number) => void;
+  onFindClose?: () => void;
+  onFindChange?: (q: string) => void;
+  onFindNext?: () => void;
+  onFindPrev?: () => void;
+  onFindToggleCase?: () => void;
+  onFindToggleRegex?: () => void;
 }
 
 export default function Editor({
@@ -21,6 +35,19 @@ export default function Editor({
   onCloseTab,
   previewTrigger,
   onFileClick,
+  findOpen = false,
+  findQuery = "",
+  findCase = false,
+  findRegex = false,
+  findActiveMatch = 0,
+  findMatchCount = 0,
+  onFindMatchCountChange,
+  onFindClose,
+  onFindChange,
+  onFindNext,
+  onFindPrev,
+  onFindToggleCase,
+  onFindToggleRegex,
 }: EditorProps) {
   const [previewMode, setPreviewMode] = useState<
     Record<string, "code" | "preview" | "split">
@@ -154,15 +181,35 @@ export default function Editor({
       {activeTab && <Breadcrumb activeTab={activeTab} />}
 
       {/* Editor Content */}
-      <div className="flex-1 overflow-auto">
+      <div className="relative flex-1 overflow-hidden">
         {activeTab ? (
           <div key={activeTab} className="editor-fade-in h-full">
+            {findOpen && (
+              <FindPanel
+                query={findQuery}
+                onChange={onFindChange!}
+                matchCount={findMatchCount}
+                activeMatch={findActiveMatch}
+                onNext={onFindNext!}
+                onPrev={onFindPrev!}
+                onClose={onFindClose!}
+                caseSensitive={findCase}
+                onToggleCase={onFindToggleCase!}
+                useRegex={findRegex}
+                onToggleRegex={onFindToggleRegex!}
+              />
+            )}
             <FileContent
               filename={activeTab}
               previewMode={
                 isMarkdownFile(activeTab) ? getPreviewMode(activeTab) : "code"
               }
               onFileClick={onFileClick}
+              findQuery={findOpen ? findQuery : ""}
+              caseSensitive={findCase}
+              useRegex={findRegex}
+              activeMatchIndex={findActiveMatch}
+              onMatchCountChange={onFindMatchCountChange}
             />
           </div>
         ) : (
