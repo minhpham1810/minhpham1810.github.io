@@ -15,7 +15,7 @@ export default function VSCodeWindow() {
   const [activeSidebarItem, setActiveSidebarItem] = useState("files");
   const [openTabs, setOpenTabs] = useState<string[]>(["README.md"]);
   const [previewTrigger, setPreviewTrigger] = useState(0);
-  const [terminalOpen, setTerminalOpen] = useState(false);
+  const [terminalOpen, setTerminalOpen] = useState(true);
   const [terminalHeight, setTerminalHeight] = useState(200);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [paletteMode, setPaletteMode] = useState<"files" | "commands">("files");

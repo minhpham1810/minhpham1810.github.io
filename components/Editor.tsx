@@ -114,7 +114,7 @@ export default function Editor({
   ];
 
   return (
-    <div className="flex-1 flex flex-col bg-vscode-editor">
+    <div className="flex-1 flex flex-col min-h-0 bg-vscode-editor">
       {/* Tabs */}
       <div className="flex bg-vscode-tabInactive border-b border-vscode-border overflow-x-auto">
         {openTabs.length > 0
@@ -185,10 +185,10 @@ export default function Editor({
       {activeTab && <Breadcrumb activeTab={activeTab} />}
 
       {/* Editor Content */}
-      <div className="relative flex-1 overflow-hidden">
+      <div className="relative flex-1 min-h-0 overflow-hidden">
         {activeTab ? (
-          <div key={activeTab} className="editor-fade-in h-full flex flex-1 overflow-hidden">
-            <div ref={scrollRef} className="flex-1 overflow-y-auto relative">
+          <div key={activeTab} className="editor-fade-in h-full min-h-0 flex flex-1 overflow-hidden">
+            <div ref={scrollRef} className="relative flex-1 min-h-0 overflow-y-auto">
               {findOpen && (
                 <FindPanel
                   query={findQuery}
