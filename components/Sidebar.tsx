@@ -68,6 +68,7 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
     my_work: {
       type: "folder",
       children: {
+        "oira-chatbot.md": "file",
         "kalmus-web.md": "file",
         "SpotOn.md": "file",
         "FeelBit.md": "file",
