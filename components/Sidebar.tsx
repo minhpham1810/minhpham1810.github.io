@@ -65,13 +65,15 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
     "about.md": "file",
     "experience.md": "file",
     "resume.pdf": "file",
-    projects: {
+    my_work: {
       type: "folder",
       children: {
-        "portfolio-website.md": "file",
+        "kalmus-web.md": "file",
         "SpotOn.md": "file",
         "FeelBit.md": "file",
         "ecommerce-ml.md": "file",
+        "architecture-of-sleep.md": "file",
+        "portfolio-website.md": "file",
       },
     },
     "skills.md": "file",
