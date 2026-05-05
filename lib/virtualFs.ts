@@ -33,7 +33,7 @@ function nodeAtSegments(segments: string[]): VFSNode | null {
   let current: VFSNode = VIRTUAL_FS
   for (const seg of segments) {
     if (current.type !== 'dir') return null
-    const found = current.children.find(c => c.name === seg)
+    const found: VFSNode | undefined = current.children.find(c => c.name === seg)
     if (!found) return null
     current = found
   }
