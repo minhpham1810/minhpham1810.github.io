@@ -1,17 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { MouseEvent as ReactMouseEvent, useState, useEffect, useRef } from "react";
 import ActivityBar from "./ActivityBar";
 import Sidebar from "./Sidebar";
 import Editor from "./Editor";
 import StatusBar from "./StatusBar";
 import TitleBar from "./TitleBar";
+import Terminal from "./Terminal";
 
 export default function VSCodeWindow() {
   const [activeTab, setActiveTab] = useState("README.md");
   const [activeSidebarItem, setActiveSidebarItem] = useState("files");
   const [openTabs, setOpenTabs] = useState<string[]>(["README.md"]);
   const [previewTrigger, setPreviewTrigger] = useState(0);
+  const [terminalOpen, setTerminalOpen] = useState(false);
+  const [terminalHeight, setTerminalHeight] = useState(200);
+  const isResizing = useRef(false);
 
   const handleFileClick = (file: string) => {
     // If file is not already open, add it to openTabs
@@ -42,6 +46,12 @@ export default function VSCodeWindow() {
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.key === "`") {
+        e.preventDefault();
+        setTerminalOpen((prev) => !prev);
+        return;
+      }
+
       // Ctrl+W or Cmd+W to close current tab
       if ((e.ctrlKey || e.metaKey) && e.key === "w") {
         e.preventDefault();
@@ -91,23 +101,61 @@ export default function VSCodeWindow() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, openTabs]);
 
+  function startResize(e: ReactMouseEvent) {
+    e.preventDefault();
+    isResizing.current = true;
+    const startY = e.clientY;
+    const startH = terminalHeight;
+
+    function onMove(ev: MouseEvent) {
+      if (!isResizing.current) return;
+      setTerminalHeight(Math.max(80, Math.min(600, startH + (startY - ev.clientY))));
+    }
+    function onUp() {
+      isResizing.current = false;
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    }
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  }
+
   return (
     <div className="flex flex-col h-screen bg-vscode-bg text-vscode-text">
       <TitleBar />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden min-h-0">
         <ActivityBar
           activeItem={activeSidebarItem}
           onItemClick={setActiveSidebarItem}
         />
         <Sidebar activeItem={activeSidebarItem} onFileClick={handleFileClick} />
-        <Editor
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-          openTabs={openTabs}
-          onCloseTab={handleCloseTab}
-          previewTrigger={previewTrigger}
-          onFileClick={handleFileClick}
-        />
+        <div className="flex flex-col flex-1 overflow-hidden">
+          <Editor
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+            openTabs={openTabs}
+            onCloseTab={handleCloseTab}
+            previewTrigger={previewTrigger}
+            onFileClick={handleFileClick}
+          />
+          {terminalOpen && (
+            <div
+              style={{ height: terminalHeight }}
+              className="flex-shrink-0 flex flex-col border-t border-vscode-border"
+            >
+              <div
+                className="h-1 cursor-row-resize hover:bg-vscode-statusBar transition-colors flex-shrink-0"
+                onMouseDown={startResize}
+              />
+              <div className="flex-1 overflow-hidden">
+                <Terminal
+                  onOpenFile={handleFileClick}
+                  onClose={() => setTerminalOpen(false)}
+                />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
       <StatusBar activeTab={activeTab} />
     </div>
