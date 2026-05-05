@@ -7,6 +7,7 @@ import Editor from "./Editor";
 import StatusBar from "./StatusBar";
 import TitleBar from "./TitleBar";
 import Terminal from "./Terminal";
+import CommandPalette from "./CommandPalette";
 
 export default function VSCodeWindow() {
   const [activeTab, setActiveTab] = useState("README.md");
@@ -15,6 +16,8 @@ export default function VSCodeWindow() {
   const [previewTrigger, setPreviewTrigger] = useState(0);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [terminalHeight, setTerminalHeight] = useState(200);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [paletteMode, setPaletteMode] = useState<"files" | "commands">("files");
   const isResizing = useRef(false);
 
   const handleFileClick = (file: string) => {
@@ -49,6 +52,20 @@ export default function VSCodeWindow() {
       if (e.ctrlKey && e.key === "`") {
         e.preventDefault();
         setTerminalOpen((prev) => !prev);
+        return;
+      }
+
+      if (e.ctrlKey && e.shiftKey && e.key === "P") {
+        e.preventDefault();
+        setPaletteMode("commands");
+        setPaletteOpen(true);
+        return;
+      }
+
+      if (e.ctrlKey && !e.shiftKey && e.key === "p") {
+        e.preventDefault();
+        setPaletteMode("files");
+        setPaletteOpen(true);
         return;
       }
 
@@ -120,6 +137,21 @@ export default function VSCodeWindow() {
     window.addEventListener("mouseup", onUp);
   }
 
+  function handlePaletteCommand(action: string) {
+    if (action === "openTerminal") {
+      setTerminalOpen(true);
+    }
+    if (action === "closeTab" && activeTab) {
+      handleCloseTab(activeTab);
+    }
+    if (action === "togglePreview" && activeTab?.endsWith(".md")) {
+      setPreviewTrigger((prev) => prev + 1);
+    }
+    if (action === "toggleSplit" && activeTab?.endsWith(".md")) {
+      setPreviewTrigger((prev) => prev + 1);
+    }
+  }
+
   return (
     <div className="flex flex-col h-screen bg-vscode-bg text-vscode-text">
       <TitleBar />
@@ -158,6 +190,15 @@ export default function VSCodeWindow() {
         </div>
       </div>
       <StatusBar activeTab={activeTab} />
+      {paletteOpen && (
+        <CommandPalette
+          recentFiles={openTabs}
+          onOpenFile={handleFileClick}
+          onCommand={handlePaletteCommand}
+          onClose={() => setPaletteOpen(false)}
+          initialMode={paletteMode}
+        />
+      )}
     </div>
   );
 }
