@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import MarkdownPreview from "./MarkdownPreview";
 import PDFPreview from "./PDFPreview";
 import { contentMap } from "@/lib/contentMap";
@@ -8,12 +9,22 @@ interface FileContentProps {
   filename: string;
   previewMode?: "code" | "preview" | "split";
   onFileClick?: (file: string) => void;
+  findQuery?: string;
+  caseSensitive?: boolean;
+  useRegex?: boolean;
+  activeMatchIndex?: number;
+  onMatchCountChange?: (count: number) => void;
 }
 
 export default function FileContent({
   filename,
   previewMode = "code",
   onFileClick,
+  findQuery = "",
+  caseSensitive = false,
+  useRegex = false,
+  activeMatchIndex = 0,
+  onMatchCountChange,
 }: FileContentProps) {
   const getContent = (file: string): string => {
     if (file === "resume.pdf") return "PDF_FILE";
@@ -21,12 +32,91 @@ export default function FileContent({
   };
 
   const content = getContent(filename);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    el.querySelectorAll("mark[data-find]").forEach((m) => {
+      const parent = m.parentNode;
+      if (parent) {
+        parent.replaceChild(document.createTextNode(m.textContent ?? ""), m);
+        parent.normalize();
+      }
+    });
+
+    if (!findQuery) {
+      onMatchCountChange?.(0);
+      return;
+    }
+
+    let pattern: RegExp;
+    try {
+      const flags = caseSensitive ? "g" : "gi";
+      pattern = useRegex
+        ? new RegExp(findQuery, flags)
+        : new RegExp(findQuery.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), flags);
+    } catch {
+      onMatchCountChange?.(0);
+      return;
+    }
+
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const textNodes: Text[] = [];
+    let node: Node | null;
+    while ((node = walker.nextNode())) textNodes.push(node as Text);
+
+    let totalMatches = 0;
+    textNodes.forEach((textNode) => {
+      const text = textNode.textContent ?? "";
+      pattern.lastIndex = 0;
+      const matches = [...text.matchAll(new RegExp(pattern.source, pattern.flags))];
+      if (!matches.length) return;
+
+      const frag = document.createDocumentFragment();
+      let lastIdx = 0;
+      matches.forEach((m) => {
+        if (m.index === undefined) return;
+        frag.appendChild(document.createTextNode(text.slice(lastIdx, m.index)));
+        const mark = document.createElement("mark");
+        mark.setAttribute("data-find", "true");
+        mark.setAttribute("data-match-index", String(totalMatches));
+        mark.style.background = totalMatches === activeMatchIndex ? "#f57c00" : "#ffeb3b";
+        mark.style.color = "#000";
+        mark.style.borderRadius = "2px";
+        mark.textContent = m[0];
+        frag.appendChild(mark);
+        totalMatches++;
+        lastIdx = m.index + m[0].length;
+      });
+      frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+      textNode.parentNode?.replaceChild(frag, textNode);
+    });
+    onMatchCountChange?.(totalMatches);
+  }, [findQuery, caseSensitive, useRegex, filename, activeMatchIndex, onMatchCountChange]);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    el.querySelectorAll<HTMLElement>("mark[data-find]").forEach((m) => {
+      const idx = parseInt(m.getAttribute("data-match-index") ?? "-1");
+      m.style.background = idx === activeMatchIndex ? "#f57c00" : "#ffeb3b";
+      if (idx === activeMatchIndex) {
+        m.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+    });
+  }, [activeMatchIndex]);
 
   // Handle PDF files
   if (content === "PDF_FILE") {
     const googleDriveUrl =
       "https://drive.google.com/file/d/1rNd_H9fLWWmmH7zTViRTOYi-waebzB-o/view?usp=sharing";
-    return <PDFPreview googleDriveUrl={googleDriveUrl} />;
+    return (
+      <div ref={containerRef} className="relative flex-1 overflow-auto">
+        <PDFPreview googleDriveUrl={googleDriveUrl} />
+      </div>
+    );
   }
 
   const lines = content.split("\n");
@@ -142,10 +232,14 @@ export default function FileContent({
 
   // Render based on preview mode
   if (previewMode === "preview") {
-    return <MarkdownPreview content={content} onFileClick={onFileClick} />;
+    return (
+      <div ref={containerRef} className="relative flex-1 overflow-auto">
+        <MarkdownPreview content={content} onFileClick={onFileClick} />
+      </div>
+    );
   } else if (previewMode === "split") {
     return (
-      <div className="flex h-full">
+      <div ref={containerRef} className="relative flex h-full">
         <div className="flex-1 border-r border-vscode-border overflow-auto">
           {renderCodeView()}
         </div>
@@ -157,5 +251,9 @@ export default function FileContent({
   }
 
   // Default: code view
-  return renderCodeView();
+  return (
+    <div ref={containerRef} className="relative flex-1 overflow-auto">
+      {renderCodeView()}
+    </div>
+  );
 }
