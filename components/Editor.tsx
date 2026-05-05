@@ -1,10 +1,11 @@
 "use client";
 
 import { VscClose, VscOpenPreview, VscCode, VscFile } from "react-icons/vsc";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import FileContent from "./FileContent";
 import Breadcrumb from "./Breadcrumb";
 import FindPanel from "./FindPanel";
+import Minimap from "./Minimap";
 
 interface EditorProps {
   activeTab: string;
@@ -19,6 +20,7 @@ interface EditorProps {
   findRegex?: boolean;
   findActiveMatch?: number;
   findMatchCount?: number;
+  activeContent?: string;
   onFindMatchCountChange?: (n: number) => void;
   onFindClose?: () => void;
   onFindChange?: (q: string) => void;
@@ -41,6 +43,7 @@ export default function Editor({
   findRegex = false,
   findActiveMatch = 0,
   findMatchCount = 0,
+  activeContent = "",
   onFindMatchCountChange,
   onFindClose,
   onFindChange,
@@ -52,6 +55,7 @@ export default function Editor({
   const [previewMode, setPreviewMode] = useState<
     Record<string, "code" | "preview" | "split">
   >({});
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const isMarkdownFile = (filename: string) => filename.endsWith(".md");
 
@@ -183,34 +187,39 @@ export default function Editor({
       {/* Editor Content */}
       <div className="relative flex-1 overflow-hidden">
         {activeTab ? (
-          <div key={activeTab} className="editor-fade-in h-full">
-            {findOpen && (
-              <FindPanel
-                query={findQuery}
-                onChange={onFindChange!}
-                matchCount={findMatchCount}
-                activeMatch={findActiveMatch}
-                onNext={onFindNext!}
-                onPrev={onFindPrev!}
-                onClose={onFindClose!}
+          <div key={activeTab} className="editor-fade-in h-full flex flex-1 overflow-hidden">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto relative">
+              {findOpen && (
+                <FindPanel
+                  query={findQuery}
+                  onChange={onFindChange!}
+                  matchCount={findMatchCount}
+                  activeMatch={findActiveMatch}
+                  onNext={onFindNext!}
+                  onPrev={onFindPrev!}
+                  onClose={onFindClose!}
+                  caseSensitive={findCase}
+                  onToggleCase={onFindToggleCase!}
+                  useRegex={findRegex}
+                  onToggleRegex={onFindToggleRegex!}
+                />
+              )}
+              <FileContent
+                filename={activeTab}
+                previewMode={
+                  isMarkdownFile(activeTab) ? getPreviewMode(activeTab) : "code"
+                }
+                onFileClick={onFileClick}
+                findQuery={findOpen ? findQuery : ""}
                 caseSensitive={findCase}
-                onToggleCase={onFindToggleCase!}
                 useRegex={findRegex}
-                onToggleRegex={onFindToggleRegex!}
+                activeMatchIndex={findActiveMatch}
+                onMatchCountChange={onFindMatchCountChange}
               />
+            </div>
+            {getPreviewMode(activeTab) !== "split" && (
+              <Minimap content={activeContent} scrollRef={scrollRef} />
             )}
-            <FileContent
-              filename={activeTab}
-              previewMode={
-                isMarkdownFile(activeTab) ? getPreviewMode(activeTab) : "code"
-              }
-              onFileClick={onFileClick}
-              findQuery={findOpen ? findQuery : ""}
-              caseSensitive={findCase}
-              useRegex={findRegex}
-              activeMatchIndex={findActiveMatch}
-              onMatchCountChange={onFindMatchCountChange}
-            />
           </div>
         ) : (
           <div className="flex items-center justify-center h-full bg-vscode-editor select-none relative overflow-hidden">

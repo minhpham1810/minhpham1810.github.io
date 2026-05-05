@@ -39,9 +39,9 @@ export default function Minimap({ content, scrollRef }: MinimapProps) {
     const el = scrollRef.current
     if (!el) return
     function update() {
-      const ratio = el.clientHeight / el.scrollHeight
+      const ratio = el!.clientHeight / el!.scrollHeight
       setViewportRatio(Math.min(ratio, 1))
-      setViewportTop((el.scrollTop / el.scrollHeight) * totalH)
+      setViewportTop((el!.scrollTop / el!.scrollHeight) * totalH)
     }
     update()
     el.addEventListener('scroll', update)

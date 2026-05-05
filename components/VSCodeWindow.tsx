@@ -8,6 +8,7 @@ import StatusBar from "./StatusBar";
 import TitleBar from "./TitleBar";
 import Terminal from "./Terminal";
 import CommandPalette from "./CommandPalette";
+import { contentMap } from "@/lib/contentMap";
 
 export default function VSCodeWindow() {
   const [activeTab, setActiveTab] = useState("README.md");
@@ -214,6 +215,7 @@ export default function VSCodeWindow() {
             onFindPrev={() => setFindActiveMatch((i) => (findMatchCount > 0 ? (i - 1 + findMatchCount) % findMatchCount : 0))}
             onFindToggleCase={() => setFindCase((p) => !p)}
             onFindToggleRegex={() => setFindRegex((p) => !p)}
+            activeContent={contentMap[activeTab] ?? ""}
           />
           {terminalOpen && (
             <div

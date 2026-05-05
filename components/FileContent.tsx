@@ -113,7 +113,7 @@ export default function FileContent({
     const googleDriveUrl =
       "https://drive.google.com/file/d/1rNd_H9fLWWmmH7zTViRTOYi-waebzB-o/view?usp=sharing";
     return (
-      <div ref={containerRef} className="relative flex-1 overflow-auto">
+      <div ref={containerRef} className="relative flex-1">
         <PDFPreview googleDriveUrl={googleDriveUrl} />
       </div>
     );
@@ -233,7 +233,7 @@ export default function FileContent({
   // Render based on preview mode
   if (previewMode === "preview") {
     return (
-      <div ref={containerRef} className="relative flex-1 overflow-auto">
+      <div ref={containerRef} className="relative flex-1">
         <MarkdownPreview content={content} onFileClick={onFileClick} />
       </div>
     );
@@ -252,7 +252,7 @@ export default function FileContent({
 
   // Default: code view
   return (
-    <div ref={containerRef} className="relative flex-1 overflow-auto">
+    <div ref={containerRef} className="relative flex-1">
       {renderCodeView()}
     </div>
   );
