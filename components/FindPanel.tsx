@@ -40,18 +40,18 @@ export default function FindPanel({
     : `${activeMatch + 1} of ${matchCount}`
 
   return (
-    <div className="absolute top-2 right-4 z-40 flex items-center gap-1 bg-[#252526] border border-vscode-border rounded shadow-xl px-2 py-1.5">
+    <div className="absolute top-2 right-2 z-40 flex max-w-[calc(100%-1rem)] items-center gap-1 rounded border border-vscode-border bg-[#252526] px-2 py-1.5 shadow-xl sm:right-4">
       <input
         ref={inputRef}
         value={query}
         onChange={e => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Find"
-        className="w-48 bg-[#3c3c3c] text-vscode-text text-[13px] px-2 py-0.5 rounded outline-none placeholder:text-vscode-textMuted border border-transparent focus:border-[#007acc]"
+        className="w-28 rounded border border-transparent bg-[#3c3c3c] px-2 py-0.5 text-[13px] text-vscode-text outline-none placeholder:text-vscode-textMuted focus:border-[#007acc] sm:w-48"
         spellCheck={false}
       />
       {counterText && (
-        <span className="text-vscode-textMuted text-[11px] w-16 text-center">{counterText}</span>
+        <span className="hidden w-16 text-center text-[11px] text-vscode-textMuted sm:inline">{counterText}</span>
       )}
       <button
         onClick={onToggleCase}

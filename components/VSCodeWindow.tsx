@@ -13,6 +13,7 @@ import { contentMap } from "@/lib/contentMap";
 export default function VSCodeWindow() {
   const [activeTab, setActiveTab] = useState("README.md");
   const [activeSidebarItem, setActiveSidebarItem] = useState("files");
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [openTabs, setOpenTabs] = useState<string[]>(["README.md"]);
   const [previewTrigger, setPreviewTrigger] = useState(0);
   const [terminalOpen, setTerminalOpen] = useState(true);
@@ -25,6 +26,7 @@ export default function VSCodeWindow() {
   const [findRegex, setFindRegex] = useState(false);
   const [findMatchCount, setFindMatchCount] = useState(0);
   const [findActiveMatch, setFindActiveMatch] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const isResizing = useRef(false);
 
   const handleFileClick = (file: string) => {
@@ -34,7 +36,34 @@ export default function VSCodeWindow() {
     }
     // Set as active tab
     setActiveTab(file);
+    if (isMobile) {
+      setSidebarOpen(false);
+    }
   };
+
+  const handleSidebarItemClick = (item: string) => {
+    if (item === activeSidebarItem) {
+      setSidebarOpen((prev) => !prev);
+      return;
+    }
+
+    setActiveSidebarItem(item);
+    setSidebarOpen(true);
+  };
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const syncViewport = (event?: MediaQueryListEvent) => {
+      const mobile = event ? event.matches : mediaQuery.matches;
+      setIsMobile(mobile);
+      setSidebarOpen(!mobile);
+    };
+
+    syncViewport();
+    mediaQuery.addEventListener("change", syncViewport);
+
+    return () => mediaQuery.removeEventListener("change", syncViewport);
+  }, []);
 
   const handleCloseTab = (file: string) => {
     const newTabs = openTabs.filter((tab) => tab !== file);
@@ -94,6 +123,10 @@ export default function VSCodeWindow() {
           setTerminalOpen(false);
           return;
         }
+        if (isMobile && sidebarOpen) {
+          setSidebarOpen(false);
+          return;
+        }
       }
 
       // Ctrl+W or Cmd+W to close current tab
@@ -143,7 +176,7 @@ export default function VSCodeWindow() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab, openTabs, paletteOpen, findOpen, terminalOpen]);
+  }, [activeTab, openTabs, paletteOpen, findOpen, terminalOpen, isMobile, sidebarOpen]);
 
   function startResize(e: ReactMouseEvent) {
     e.preventDefault();
@@ -185,10 +218,25 @@ export default function VSCodeWindow() {
       <div className="flex flex-1 overflow-hidden min-h-0">
         <ActivityBar
           activeItem={activeSidebarItem}
-          onItemClick={setActiveSidebarItem}
+          onItemClick={handleSidebarItemClick}
         />
-        <Sidebar activeItem={activeSidebarItem} onFileClick={handleFileClick} />
-        <div className="flex flex-col flex-1 overflow-hidden">
+        <div className="relative flex flex-1 min-h-0 overflow-hidden">
+          {isMobile && sidebarOpen && (
+            <button
+              type="button"
+              aria-label="Close sidebar"
+              className="absolute inset-0 z-20 bg-black/40"
+              onClick={() => setSidebarOpen(false)}
+            />
+          )}
+          <Sidebar
+            activeItem={activeSidebarItem}
+            onFileClick={handleFileClick}
+            isOpen={sidebarOpen}
+            isMobile={isMobile}
+            onClose={() => setSidebarOpen(false)}
+          />
+          <div className="flex flex-col flex-1 overflow-hidden min-w-0">
           <Editor
             activeTab={activeTab}
             onTabChange={setActiveTab}
@@ -219,12 +267,12 @@ export default function VSCodeWindow() {
           />
           {terminalOpen && (
             <div
-              style={{ height: terminalHeight }}
+              style={{ height: isMobile ? Math.min(terminalHeight, 180) : terminalHeight }}
               className="flex-shrink-0 flex flex-col border-t border-vscode-border"
             >
               <div
                 className="h-1 cursor-row-resize hover:bg-vscode-statusBar transition-colors flex-shrink-0"
-                onMouseDown={startResize}
+                onMouseDown={isMobile ? undefined : startResize}
               />
               <div className="flex-1 overflow-hidden">
                 <Terminal
@@ -234,6 +282,7 @@ export default function VSCodeWindow() {
               </div>
             </div>
           )}
+          </div>
         </div>
       </div>
       <StatusBar activeTab={activeTab} />

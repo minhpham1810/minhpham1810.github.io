@@ -90,7 +90,7 @@ export default function Minimap({ content, scrollRef }: MinimapProps) {
   return (
     <div
       ref={containerRef}
-      className="relative flex-shrink-0 w-[80px] border-l border-vscode-border overflow-hidden cursor-pointer select-none"
+      className="relative hidden w-[80px] flex-shrink-0 cursor-pointer overflow-hidden border-l border-vscode-border select-none lg:block"
       onClick={handleMinimapClick}
     >
       {lines.map((line, i) => {

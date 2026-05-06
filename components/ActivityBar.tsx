@@ -27,7 +27,7 @@ export default function ActivityBar({
   ];
 
   return (
-    <div className="w-12 bg-vscode-activityBar flex flex-col items-center py-2 border-r border-vscode-border">
+    <div className="w-10 sm:w-12 bg-vscode-activityBar flex flex-col items-center py-2 border-r border-vscode-border shrink-0">
       {items.map((item) => {
         const Icon = item.icon;
         const isActive = activeItem === item.id;
@@ -35,13 +35,13 @@ export default function ActivityBar({
           <button
             key={item.id}
             onClick={() => onItemClick(item.id)}
-            className={`group w-12 h-12 flex items-center justify-center hover:bg-vscode-highlight transition-all duration-150 ${
+            className={`group w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-vscode-highlight transition-all duration-150 ${
               isActive ? "border-l-2 border-vscode-statusBar" : ""
             }`}
             title={item.label}
           >
             <Icon
-              className={`w-6 h-6 transition-opacity duration-150 ${
+              className={`w-5 h-5 sm:w-6 sm:h-6 transition-opacity duration-150 ${
                 isActive
                   ? "opacity-100"
                   : "opacity-60 group-hover:opacity-100"
@@ -51,8 +51,8 @@ export default function ActivityBar({
         );
       })}
       <div className="flex-1" />
-      <button className="group w-12 h-12 flex items-center justify-center hover:bg-vscode-highlight transition-all duration-150">
-        <VscAccount className="w-6 h-6 opacity-60 group-hover:opacity-100 transition-opacity duration-150" />
+      <button className="group w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-vscode-highlight transition-all duration-150">
+        <VscAccount className="w-5 h-5 sm:w-6 sm:h-6 opacity-60 group-hover:opacity-100 transition-opacity duration-150" />
       </button>
     </div>
   );

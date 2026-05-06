@@ -14,6 +14,9 @@ import { useState } from "react";
 interface SidebarProps {
   activeItem: string;
   onFileClick: (file: string) => void;
+  isOpen: boolean;
+  isMobile?: boolean;
+  onClose?: () => void;
 }
 
 const getFileIcon = (fileName: string) => {
@@ -26,7 +29,13 @@ const getFileIcon = (fileName: string) => {
   return <VscFile className="w-4 h-4 mr-2 shrink-0" />;
 };
 
-export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
+export default function Sidebar({
+  activeItem,
+  onFileClick,
+  isOpen,
+  isMobile = false,
+  onClose,
+}: SidebarProps) {
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(
     new Set(["root"])
   );
@@ -41,14 +50,35 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
     setExpandedFolders(newExpanded);
   };
 
+  if (!isOpen) {
+    return null;
+  }
+
+  const sidebarClassName = `bg-vscode-sidebar border-r border-vscode-border ${
+    isMobile
+      ? "absolute inset-y-0 left-0 z-30 w-[min(18rem,calc(100vw-2.5rem))] shadow-2xl"
+      : "w-64 shrink-0"
+  }`;
+
   if (activeItem !== "files") {
     return (
-      <div className="w-64 bg-vscode-sidebar border-r border-vscode-border p-4">
-        <div className="text-vscode-textMuted text-xs uppercase mb-2">
-          {activeItem === "search" && "Search"}
-          {activeItem === "git" && "Source Control"}
-          {activeItem === "debug" && "Run and Debug"}
-          {activeItem === "extensions" && "Extensions"}
+      <div className={`${sidebarClassName} overflow-y-auto p-4`}>
+        <div className="mb-2 flex items-center justify-between">
+          <div className="text-vscode-textMuted text-xs uppercase">
+            {activeItem === "search" && "Search"}
+            {activeItem === "git" && "Source Control"}
+            {activeItem === "debug" && "Run and Debug"}
+            {activeItem === "extensions" && "Extensions"}
+          </div>
+          {isMobile && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="text-xs text-vscode-textMuted hover:text-vscode-text transition-colors"
+            >
+              Close
+            </button>
+          )}
         </div>
         <div className="text-vscode-textMuted text-sm">
           {activeItem === "search" && "Search features coming soon..."}
@@ -138,10 +168,21 @@ export default function Sidebar({ activeItem, onFileClick }: SidebarProps) {
   };
 
   return (
-    <div className="w-64 bg-vscode-sidebar border-r border-vscode-border">
+    <div className={`${sidebarClassName} overflow-y-auto`}>
       <div className="p-2">
-        <div className="text-xs uppercase text-vscode-textMuted mb-2 px-2">
-          Explorer
+        <div className="mb-2 flex items-center justify-between px-2">
+          <div className="text-xs uppercase text-vscode-textMuted">
+            Explorer
+          </div>
+          {isMobile && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="text-xs text-vscode-textMuted hover:text-vscode-text transition-colors"
+            >
+              Close
+            </button>
+          )}
         </div>
         <div className="mb-4">
           <div

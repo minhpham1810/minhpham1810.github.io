@@ -113,7 +113,7 @@ export default function FileContent({
     const googleDriveUrl =
       "https://drive.google.com/file/d/1rNd_H9fLWWmmH7zTViRTOYi-waebzB-o/view?usp=sharing";
     return (
-      <div ref={containerRef} className="relative flex-1">
+      <div ref={containerRef} className="relative flex h-full min-h-0 flex-1 bg-vscode-bg">
         <PDFPreview googleDriveUrl={googleDriveUrl} />
       </div>
     );

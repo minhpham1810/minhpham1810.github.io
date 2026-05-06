@@ -8,23 +8,22 @@ import {
 
 export default function TitleBar() {
   return (
-    <div className="h-8 bg-vscode-activityBar flex items-center justify-between px-2 select-none border-b border-vscode-border">
-      <div className="flex items-center space-x-4">
-        {/* macOS-style traffic light buttons */}
+    <div className="h-8 shrink-0 border-b border-vscode-border bg-vscode-activityBar px-2 select-none">
+      <div className="flex h-full min-w-0 items-center space-x-3 sm:space-x-4">
         <div className="flex items-center space-x-1.5 group">
-          <button className="w-3 h-3 rounded-full bg-[#ff5f57] flex items-center justify-center">
-            <VscChromeClose className="w-2 h-2 text-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+          <button className="flex h-3 w-3 items-center justify-center rounded-full bg-[#ff5f57]">
+            <VscChromeClose className="h-2 w-2 text-black/60 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
           </button>
-          <button className="w-3 h-3 rounded-full bg-[#ffbd2e] flex items-center justify-center">
-            <VscChromeMinimize className="w-2 h-2 text-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+          <button className="flex h-3 w-3 items-center justify-center rounded-full bg-[#ffbd2e]">
+            <VscChromeMinimize className="h-2 w-2 text-black/60 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
           </button>
-          <button className="w-3 h-3 rounded-full bg-[#28c940] flex items-center justify-center">
-            <VscChromeMaximize className="w-2 h-2 text-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
+          <button className="flex h-3 w-3 items-center justify-center rounded-full bg-[#28c940]">
+            <VscChromeMaximize className="h-2 w-2 text-black/60 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
           </button>
         </div>
-        <div className="flex items-center space-x-2">
-          <span className="text-sm">📁</span>
-          <span className="text-sm">
+        <div className="flex min-w-0 items-center space-x-2">
+          <span className="hidden text-sm sm:inline">VS</span>
+          <span className="truncate text-xs sm:text-sm">
             minhpham1810.github.io - Visual Studio Code Version
           </span>
         </div>
