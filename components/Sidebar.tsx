@@ -105,6 +105,7 @@ export default function Sidebar({
         "ecommerce-ml.md": "file",
         "architecture-of-sleep.md": "file",
         "portfolio-website.md": "file",
+        "secure-auth.md": "file",
       },
     },
     "skills.md": "file",

@@ -10,6 +10,7 @@ import ecommerceML from '@/content/projects/ecommerce-ml'
 import kalmusWeb from '@/content/projects/kalmus-web'
 import architectureOfSleep from '@/content/projects/architecture-of-sleep'
 import oiraChatbot from '@/content/projects/oira-chatbot'
+import secureAuth from '@/content/projects/secure-auth'
 
 export const contentMap: Record<string, string> = {
   'README.md': README,
@@ -24,4 +25,5 @@ export const contentMap: Record<string, string> = {
   'kalmus-web.md': kalmusWeb,
   'architecture-of-sleep.md': architectureOfSleep,
   'oira-chatbot.md': oiraChatbot,
+  'secure-auth.md': secureAuth,
 }
