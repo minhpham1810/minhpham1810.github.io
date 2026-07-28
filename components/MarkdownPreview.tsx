@@ -31,15 +31,15 @@ export default function MarkdownPreview({
           elements.push(
             <div
               key={i}
-              className="my-6 bg-[#1a1a1a] border border-vscode-border rounded-md overflow-x-auto relative"
+              className="relative my-9 overflow-x-auto border-l-2 border-vscode-accent bg-vscode-surface"
             >
               {codeBlockLanguage && (
                 <span className="absolute top-2 right-3 text-xs text-vscode-textMuted font-mono uppercase tracking-wider">
                   {codeBlockLanguage}
                 </span>
               )}
-              <pre className="p-5 text-sm">
-                <code className="text-green-400">
+              <pre className="p-5 text-sm leading-6 sm:p-6">
+                <code className="text-[#a8bca4]">
                   {codeBlockContent.join("\n")}
                 </code>
               </pre>
@@ -64,7 +64,7 @@ export default function MarkdownPreview({
         elements.push(
           <h1
             key={i}
-            className="text-3xl font-bold leading-tight tracking-tight border-b border-vscode-border pb-3 mb-6 mt-8 text-[#4ec9b0]"
+            className="mb-8 mt-6 max-w-[18ch] text-balance font-display text-[clamp(2.8rem,6vw,5.25rem)] font-medium leading-[0.94] tracking-[-0.055em] text-[#f0f0e8]"
           >
             {line.slice(2)}
           </h1>
@@ -73,7 +73,7 @@ export default function MarkdownPreview({
         elements.push(
           <h2
             key={i}
-            className="text-2xl font-semibold border-b border-vscode-border pb-2 mb-4 mt-7 text-[#dcdcaa]"
+            className="mb-5 mt-14 border-t border-vscode-border pt-6 font-display text-3xl font-medium leading-tight tracking-[-0.035em] text-[#ecece5] sm:text-4xl"
           >
             {line.slice(3)}
           </h2>
@@ -82,7 +82,7 @@ export default function MarkdownPreview({
         elements.push(
           <h3
             key={i}
-            className="text-xl font-semibold mb-3 mt-5 text-[#9cdcfe]"
+            className="mb-3 mt-9 text-lg font-semibold tracking-[-0.02em] text-vscode-text"
           >
             {line.slice(4)}
           </h3>
@@ -93,7 +93,7 @@ export default function MarkdownPreview({
         elements.push(
           <div
             key={i}
-            className="my-8 h-px bg-gradient-to-r from-transparent via-vscode-border to-transparent"
+            className="my-12 h-px bg-vscode-border"
           />
         );
       }
@@ -106,15 +106,15 @@ export default function MarkdownPreview({
           // Support both absolute paths and paths from assets folder
           const videoSrc = src.startsWith("/") ? src : `/assets/${src}`;
           elements.push(
-            <div key={i} className="my-4 flex justify-center">
+            <figure key={i} className="my-10">
               <video
                 controls
-                className="max-w-full h-auto rounded shadow-lg"
+                className="h-auto w-full border border-vscode-border bg-[#090a09] shadow-[0_22px_55px_rgba(4,6,4,0.34)]"
                 src={videoSrc}
               >
                 Your browser does not support the video tag.
               </video>
-            </div>
+            </figure>
           );
         }
       }
@@ -151,15 +151,16 @@ export default function MarkdownPreview({
           }
 
           elements.push(
-            <div key={i} className="my-4 flex justify-center">
+            <figure key={i} className="my-10 flex justify-center">
+              {/* Content authors control these local portfolio assets and sizes. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={imageSrc}
                 alt={alt}
-                className={`${widthStyle} h-auto rounded shadow-lg`}
+                className={`${widthStyle} h-auto border border-vscode-border shadow-[0_22px_55px_rgba(4,6,4,0.34)]`}
                 style={inlineStyle}
-                // eslint-disable-next-line @next/next/no-img-element
               />
-            </div>
+            </figure>
           );
         }
       }
@@ -168,7 +169,7 @@ export default function MarkdownPreview({
         elements.push(
           <blockquote
             key={i}
-            className="border-l-4 border-[#007acc] pl-4 py-3 my-4 bg-[#1e3a5f]/20 rounded-r text-vscode-textMuted italic leading-relaxed"
+            className="my-7 border-l-2 border-vscode-accent py-1 pl-5 font-display text-xl italic leading-relaxed text-[#b9bbb2]"
           >
             {parseInlineMarkdown(line.slice(2))}
           </blockquote>
@@ -179,15 +180,15 @@ export default function MarkdownPreview({
         const listItems: JSX.Element[] = [];
         while (i < lines.length && lines[i].match(/^[\-\*]\s/)) {
           listItems.push(
-            <li key={i} className="ml-4 pl-1 mb-1 flex items-start gap-2 text-[15px] leading-7">
-              <span className="text-vscode-statusBar mt-2 text-[8px] shrink-0">▸</span>
+            <li key={i} className="mb-1.5 flex items-start gap-3 text-[15px] leading-7 text-[#c9cbc3]">
+              <span className="mt-3 h-1 w-1 shrink-0 bg-vscode-accent" />
               <span>{parseInlineMarkdown(lines[i].slice(2))}</span>
             </li>
           );
           i++;
         }
         elements.push(
-          <ul key={`ul-${i}`} className="list-none my-4 space-y-0.5">
+          <ul key={`ul-${i}`} className="my-5 list-none space-y-0.5">
             {listItems}
           </ul>
         );
@@ -199,14 +200,14 @@ export default function MarkdownPreview({
         while (i < lines.length && lines[i].match(/^\d+\.\s/)) {
           const content = lines[i].replace(/^\d+\.\s/, "");
           listItems.push(
-            <li key={i} className="ml-6 mb-1 text-base">
+            <li key={i} className="mb-2 pl-2 text-[15px] leading-7 text-[#c9cbc3]">
               {parseInlineMarkdown(content)}
             </li>
           );
           i++;
         }
         elements.push(
-          <ol key={`ol-${i}`} className="list-decimal my-3">
+          <ol key={`ol-${i}`} className="my-5 list-decimal pl-5 marker:font-mono marker:text-vscode-accent">
             {listItems}
           </ol>
         );
@@ -214,12 +215,12 @@ export default function MarkdownPreview({
       }
       // Empty line
       else if (line.trim() === "") {
-        elements.push(<div key={i} className="h-4" />);
+        elements.push(<div key={i} className="h-3" />);
       }
       // Regular paragraph
       else {
         elements.push(
-          <p key={i} className="mb-4 leading-7 text-[15px] text-[#d4d4d4]">
+          <p key={i} className="mb-4 max-w-[65ch] text-pretty text-[15px] leading-7 text-[#c9cbc3]">
             {parseInlineMarkdown(line)}
           </p>
         );
@@ -241,7 +242,7 @@ export default function MarkdownPreview({
       parts.push(
         <code
           key={`code-${key++}`}
-          className="bg-[#1a1a1a] border border-vscode-border/50 px-1.5 py-0.5 rounded text-[13px] text-[#ce9178] font-mono"
+          className="border border-vscode-border bg-vscode-surface px-1.5 py-0.5 font-mono text-[13px] text-[#cf8e79]"
         >
           {content}
         </code>
@@ -254,7 +255,7 @@ export default function MarkdownPreview({
       parts.push(
         <strong
           key={`bold-italic-${key++}`}
-          className="font-bold italic text-yellow-300"
+          className="font-semibold italic text-[#ecece5]"
         >
           {content}
         </strong>
@@ -265,7 +266,7 @@ export default function MarkdownPreview({
     // Bold with ** or __
     currentText = currentText.replace(/\*\*(.+?)\*\*/g, (_, content) => {
       parts.push(
-        <strong key={`bold-${key++}`} className="font-bold text-yellow-300">
+        <strong key={`bold-${key++}`} className="font-semibold text-[#ecece5]">
           {content}
         </strong>
       );
@@ -274,7 +275,7 @@ export default function MarkdownPreview({
 
     currentText = currentText.replace(/__((?!>).+?)__/g, (_, content) => {
       parts.push(
-        <strong key={`bold2-${key++}`} className="font-bold text-yellow-300">
+        <strong key={`bold2-${key++}`} className="font-semibold text-[#ecece5]">
           {content}
         </strong>
       );
@@ -284,7 +285,7 @@ export default function MarkdownPreview({
     // Italic with * or _
     currentText = currentText.replace(/\*([^*]+?)\*/g, (_, content) => {
       parts.push(
-        <em key={`italic-${key++}`} className="italic text-blue-200">
+        <em key={`italic-${key++}`} className="italic text-[#b6b9af]">
           {content}
         </em>
       );
@@ -293,7 +294,7 @@ export default function MarkdownPreview({
 
     currentText = currentText.replace(/_([^_<]+?)_/g, (_, content) => {
       parts.push(
-        <em key={`italic2-${key++}`} className="italic text-blue-200">
+        <em key={`italic2-${key++}`} className="italic text-[#b6b9af]">
           {content}
         </em>
       );
@@ -305,30 +306,29 @@ export default function MarkdownPreview({
       /\[(.+?)\]\((.+?)\)/g,
       (_, linkText, url) => {
         // Check if it's an internal file link (ends with .md or is just a filename)
+        const hasProtocol = /^[a-z][a-z0-9+.-]*:/i.test(url);
         const isInternalLink =
           url.endsWith(".md") ||
-          (!url.startsWith("http") && !url.startsWith("//"));
+          url.endsWith(".pdf") ||
+          (!hasProtocol && !url.startsWith("//"));
 
         if (isInternalLink && onFileClick) {
           parts.push(
-            <a
+            <button
               key={`link-${key++}`}
-              href="#"
-              className="text-blue-400 hover:underline cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
-                onFileClick(url);
-              }}
+              type="button"
+              className="inline cursor-pointer border-b border-vscode-accent/60 text-left font-medium text-[#dda08c] transition-colors hover:border-vscode-accent hover:text-[#efb6a3]"
+              onClick={() => onFileClick(url)}
             >
               {linkText}
-            </a>
+            </button>
           );
         } else {
           parts.push(
             <a
               key={`link-${key++}`}
               href={url}
-              className="text-blue-400 hover:underline"
+              className="border-b border-vscode-accent/60 font-medium text-[#dda08c] transition-colors hover:border-vscode-accent hover:text-[#efb6a3]"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -352,8 +352,8 @@ export default function MarkdownPreview({
   };
 
   return (
-    <div className="px-10 py-8 max-w-3xl mx-auto text-vscode-text">
+    <article className="mx-auto w-full max-w-[58rem] px-5 pb-24 pt-9 text-vscode-text sm:px-9 sm:pt-14 lg:px-12 lg:pb-32">
       {renderMarkdown()}
-    </div>
+    </article>
   );
 }

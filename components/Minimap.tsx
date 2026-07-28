@@ -16,9 +16,9 @@ function classifyLine(line: string): LineType {
 }
 
 const LINE_COLORS: Record<LineType, string> = {
-  heading: '#569cd6',
-  code: '#4ec9b0',
-  text: '#858585',
+  heading: '#b85e47',
+  code: '#8fb4a8',
+  text: '#777b70',
   blank: 'transparent',
 }
 

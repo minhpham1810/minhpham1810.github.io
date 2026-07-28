@@ -1,35 +1,37 @@
-const content = `# KALMUS Web — Film Color Analysis Platform
+const content = `# KALMUS Web
 
-### Bringing computational film color analysis to the browser, powered by HPC.
+### A browser interface for film-color analysis running on university HPC infrastructure.
 
-KALMUS Web is a full-stack web application built around the KALMUS Python toolkit for quantitative color analysis of films. Users upload video files through the browser, the server submits processing jobs to a SLURM-managed HPC cluster, and interactive color barcodes and statistics are rendered back in real time—no local processing required.
+## Context
 
-## Links
-- [GitHub Repository](https://github.com/minhpham1810/kalmus_web)
-- [Live Website](https://kalmus.bucknell.edu/) (currently restricted to Bucknell University's network)
+KALMUS is a Python toolkit for quantitative film-color analysis. Its compute-heavy workflow was difficult to access without local setup and familiarity with the underlying scripts.
+
+## My role
+
+I built the Next.js frontend and the product workflow around upload, configuration, job submission, status, results, and failure states.
+
+## System
+
+The browser uploads large video files in chunks. Next.js API routes assemble the upload and generate a SLURM batch script. A compute node runs the Python analysis, then writes metadata, summaries, color barcodes, and visualization data to shared NFS storage. The frontend polls job state and renders the completed outputs with Plotly.js.
+
+## Engineering decisions
+
+- Use parallel chunked upload so large files can recover from individual request failures.
+- Model the long-running workflow explicitly as pending, running, completed, and failed states.
+- Store each job's inputs and outputs together on the shared filesystem instead of adding a database that the workflow did not require.
+- Keep institutional authentication compatible with the university's Shibboleth and CAS headers.
 
 ## Demo
+
 ![video](kalmus_demo.mp4)
 
-## Key Features
-- 📤 Chunked Upload: Large video files are uploaded in parallel chunks for reliability and speed.
-- 🎨 Color Barcodes: Generates film color barcodes and associated statistics using the KALMUS pipeline.
-- 📊 Interactive Visualizations: Hue/light scatter plots, RGB cubes, histograms, and 3D bar plots rendered with Plotly.js.
-- ⚙️ HPC Integration: Automated SLURM job submission offloads all heavy computation to university compute nodes.
-- 🔄 Live Job Tracking: Real-time status updates (pending → running → completed/failed) polled from the frontend.
-- 🎬 Metadata Enrichment: Automatic movie metadata lookup and caching via the OMDb API.
-- 🔐 Institutional Auth: Header-based authentication compatible with Shibboleth and CAS for campus use.
-- 🗂️ File-Based Output: Each job folder stores all inputs and outputs (metadata.json, barcode.json, summary.json, barcode.png)—no database required.
+## Stack
 
-## Technologies
-- Frontend: Next.js (React, TypeScript), Tailwind CSS, Plotly.js
-- Backend: Next.js API Routes (Node.js), Python 3 with KALMUS library
-- Job Scheduling: SLURM Workload Manager
-- Storage: Shared NFS filesystem bridging web server and compute nodes
-- APIs: OMDb (movie metadata)
+Next.js, React, TypeScript, Tailwind CSS, Plotly.js, Node.js API routes, Python, KALMUS, SLURM, shared NFS storage, and the OMDb API.
 
-## Architecture
-User uploads video → Next.js API stitches chunks and generates SLURM batch scripts → Compute node runs KALMUS Python pipeline → Results saved to shared NFS → Frontend polls job status and renders interactive plots.
-`;
+## Links
+
+- [View the repository](https://github.com/minhpham1810/kalmus_web)
+- [Open the Bucknell deployment](https://kalmus.bucknell.edu/) — restricted to the university network`;
 
 export default content;

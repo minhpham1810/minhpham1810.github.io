@@ -1,22 +1,32 @@
 const content = `# Secure Client-Server Authentication
 
-### Challenge-response auth with AES-encrypted channels and role-based access control, written in C.
+### Challenge-response authentication and encrypted sessions, implemented in C.
 
-A low-level systems project implementing a secure client-server communication system from scratch. The focus was on practical cryptographic integration — from salted password hashing to encrypted session traffic — using only C and OpenSSL.
+## Context
 
-## Links
-- [GitHub Repository](https://github.com/minhpham1810/csci307-s26/tree/main/Projects/Project02)
+This systems project explores what an authentication flow requires below the abstractions provided by web frameworks: credential storage, replay resistance, session encryption, message framing, and authorization.
 
-## Key Features
-- 🔐 Challenge-Response Auth: SHA-256 hashing with salted passwords and dynamic nonces to prevent replay attacks and credential exposure
-- 🔒 Encrypted Sessions: All post-authentication traffic protected with AES-256-CBC to prevent eavesdropping
-- 👥 Role-Based Access Control: USER and ADMIN roles enforce privilege separation — sensitive commands restricted by role
-- 🗂️ Modular Architecture: Separate modules for cryptography, database management, and protocol definitions keep responsibilities clean
+## System
 
-## Technologies
-- Language: C
-- Cryptography: OpenSSL (SHA-256, AES-256-CBC)
-- Build System: Makefile
+The server stores salted password hashes. During authentication it issues a dynamic nonce, allowing the client to prove knowledge of a credential without sending the stored value directly. After authentication, AES-256-CBC protects session traffic.
+
+USER and ADMIN roles enforce command-level authorization. Cryptography, database access, and protocol definitions live in separate C modules so each boundary can be reasoned about independently.
+
+## Engineering focus
+
+- Nonce-based challenge-response flow to resist replay
+- Salted SHA-256 password hashing
+- AES-256-CBC session encryption
+- Role-based access control
+- Explicit protocol and module boundaries
+
+## Stack
+
+C, OpenSSL, SHA-256, AES-256-CBC, and Make.
+
+## Repository
+
+[View the authentication project](https://github.com/minhpham1810/csci307-s26/tree/main/Projects/Project02)
 `;
 
 export default content;

@@ -1,40 +1,36 @@
-const content = `# Skills & Technologies
+const content = `# Engineering toolkit
 
-## Programming Languages
+These are the technologies I have used to ship coursework, research prototypes, client work, and production-oriented university systems.
 
-\`\`\`typescript
-const languages = [
-  'Python', 'TypeScript', 'JavaScript',
-  'Java', 'C', 'SQL', 'HTML/CSS', 'Go'
-];
-\`\`\`
+## Backend and APIs
 
-## Frameworks & Libraries
+- **Languages:** Python, TypeScript, JavaScript, Java, C, Go
+- **Services:** FastAPI, Node.js, Next.js API routes
+- **Data:** PostgreSQL, SQLite, MongoDB, ChromaDB, SQL
+- **Patterns:** REST APIs, authentication, RAG pipelines, session persistence, background jobs
 
-- **Frontend**: React, Next.js, Tailwind CSS, Three.js
-- **Backend**: FastAPI, Node.js, LangChain
-- **ML/AI**: PyTorch, scikit-learn
-- **Job Scheduling**: SLURM
+## Frontend and product UI
 
-## Tools & Platforms
+- React, Next.js, TypeScript, Tailwind CSS
+- Form validation, stateful workflows, responsive interfaces
+- Plotly.js and Three.js for interactive visualization
 
-- **Cloud**: AWS (S3, EC2, Elastic Beanstalk, Aurora)
-- **DevOps**: Docker, GitHub Actions, NGINX
-- **Databases**: SQLite, MongoDB, ChromaDB
-- **Auth**: Clerk (Google OAuth)
-- **Other**: Arduino IDE, Git
+## Data and infrastructure
 
-## Currently Learning
+- Docker, GitHub Actions, NGINX
+- AWS S3, EC2, Elastic Beanstalk, and Aurora
+- SLURM job scheduling and shared HPC storage
+- PyTorch, scikit-learn, pandas, and NumPy
 
-- Advanced RAG architectures
-- System design & distributed systems
-- UI/UX design principles
+## Engineering practices
 
-## Soft Skills
+- Git-based collaboration and code review
+- Component and API testing
+- Observability through feedback and instrumentation
+- Iterative delivery with users, clients, and project stakeholders
 
-- Problem Solving
-- Team Collaboration & Code Review
-- Technical Communication
-- Continuous Learning`;
+## Currently sharpening
+
+System design, distributed systems, and evaluation patterns for retrieval-augmented applications.`;
 
 export default content;

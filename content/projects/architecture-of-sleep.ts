@@ -6,13 +6,13 @@ const content = `# The Architecture of Sleep
 - [GitHub Repository](https://github.com/minhpham1810/math230-project-5)
 ![Exhibit infographic](sleep_infographic.png)
 A Distill website and virtual art exhibit built for MATH 230: Data Visualization & Computing. The project uses a real-world sleep health dataset to explore how bedtime habits, screen time, caffeine, sleep disorder risk, and cognitive performance connect to sleep quality—told through narrative writing, ggplot2 visualizations, and a custom night-inspired color palette.
-## Key Features
-- 📊 Data Storytelling: A 10-visualization storyboard guiding viewers from sleep distributions through daily habits to health and performance outcomes.
-- 🎨 Visual Design System: Custom night-inspired palette (night blue, soft blue, moon, lavender, coral) applied consistently across all charts and pages.
-- 📈 Exploratory Analysis: Visualizations of sleep duration, sleep quality, work hours, screen time, caffeine intake, sleep aid use, and cognitive performance.
-- 🧪 Statistical Inference: Nonparametric randomization test comparing average sleep quality between low and high bedtime screen-time groups.
-- 🗂️ Multi-Page Website: Homepage infographic, past visualizations gallery, main exhibit storyboard, and about page—all deployed via GitHub Pages.
-- 🖼️ Contour Density Plot: New visualization type mapping the joint distribution of sleep duration and cognitive performance score.
+## What I built
+
+- A 10-visualization storyboard moving from sleep distributions through daily habits, health, and performance
+- A consistent visual system applied across the exhibit, charts, and supporting pages
+- Exploratory views of sleep duration, quality, work hours, screen time, caffeine, sleep aids, and cognitive performance
+- A nonparametric randomization test comparing sleep quality between low and high bedtime screen-time groups
+- A contour-density view of sleep duration and cognitive performance
 
 ## Technologies
 - Language: R, R Markdown

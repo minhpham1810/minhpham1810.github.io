@@ -44,7 +44,7 @@ function HighlightedText({ text, indices }: { text: string; indices: number[] })
     <>
       {text.split('').map((ch, i) =>
         set.has(i)
-          ? <span key={i} className="text-[#18a3ff]">{ch}</span>
+          ? <span key={i} className="text-vscode-accent">{ch}</span>
           : <span key={i}>{ch}</span>
       )}
     </>
@@ -105,11 +105,11 @@ export default function CommandPalette({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh] bg-black/30"
+      className="fixed inset-0 z-50 flex items-start justify-center bg-[#080a08]/60 pt-[10vh] backdrop-blur-[2px]"
       onClick={onClose}
     >
       <div
-        className="w-[600px] max-w-[90vw] bg-[#252526] border border-vscode-border rounded shadow-2xl overflow-hidden"
+        className="w-[600px] max-w-[90vw] overflow-hidden border border-vscode-border bg-vscode-surfaceRaised shadow-[0_24px_80px_rgba(3,5,3,0.58)]"
         onClick={e => e.stopPropagation()}
       >
         <input
@@ -118,7 +118,7 @@ export default function CommandPalette({
           onChange={e => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={isCommandMode ? 'Type a command...' : 'Go to File...'}
-          className="w-full px-4 py-3 bg-transparent outline-none text-vscode-text text-[13px] placeholder:text-vscode-textMuted border-b border-vscode-border"
+          className="w-full border-b border-vscode-border bg-transparent px-4 py-3.5 text-[13px] text-vscode-text outline-none placeholder:text-vscode-textMuted focus:border-vscode-accent"
         />
         <div className="max-h-[320px] overflow-y-auto">
           {showRecent && (

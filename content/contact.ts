@@ -1,16 +1,13 @@
-const content = `# Get In Touch
+const content = `# Let's talk
 
-I'd love to hear from you! Whether you have a question, want to collaborate on a project, or just want to say hi, feel free to reach out.
+I'm looking for full-stack and backend new-grad opportunities beginning around my May 2027 graduation.
 
-## Contact Information
+## Contact
 
-- 📧 Email: minhpham181004@gmail.com
-- 💼 LinkedIn: [Minh Pham](https://www.linkedin.com/in/khoaminhpham18/)
-- 🐱 GitHub: [@minhpham1810](https://github.com/minhpham1810)
+- **Email:** [minhpham181004@gmail.com](mailto:minhpham181004@gmail.com)
+- **LinkedIn:** [Minh Pham](https://www.linkedin.com/in/khoaminhpham18/)
+- **GitHub:** [@minhpham1810](https://github.com/minhpham1810)
 
-
----
-
-Looking forward to connecting with you!`;
+Email is the most direct way to reach me. I am based in Lewisburg, Pennsylvania, and open to discussing software engineering roles across locations.`;
 
 export default content;

@@ -1,27 +1,35 @@
-const content = `# SpotOn: AI-powered Music Discovery App
+const content = `# SpotOn
 
-### Discover music that truly resonates—before you even hit play.
+### Music discovery that adds context before asking for another play.
 
-SpotOn is a full-stack web app that combines Spotify's vast music catalog with AI to bring you smarter, mood-driven song recommendations. Whether you're crafting the perfect playlist or exploring new genres, SpotOn helps you connect with music on a deeper level.
-## Links
-- [Live Demo](https://spot-on-six.vercel.app/)
-- [GitHub Repository](https://github.com/minhpham1810/SpotOn)
+## Context
+
+Spotify is effective at retrieving music, but catalog metadata alone does not explain why a song might fit a mood or moment. SpotOn connects search, saved music, and generated context in one product flow.
+
+## What I built
+
+The React client handles Spotify authentication, real-time song search, detail views, and saved-library actions. A Node.js backend manages tokens, Spotify API requests, and Gemini calls so credentials and model orchestration stay out of the browser.
+
+Gemini produces short descriptions based on available song themes and mood context. The generated layer supplements Spotify's catalog data rather than replacing it.
+
+## Engineering decisions
+
+- Keep OAuth tokens and third-party API orchestration behind the backend boundary.
+- Separate catalog facts from generated descriptions in the product experience.
+- Containerize the application and automate delivery with GitHub Actions.
+- Move the deployment from AWS Elastic Beanstalk to Vercel while preserving the application flow.
 
 ## Demo
+
 ![video](spoton_demo.mp4)
 
-## Key Features
-- 🔐 Spotify Login: Personalize your experience with secure Spotify authentication.
-- 🔎 Smart Song Search: Find songs instantly with real-time Spotify API integration.
-- 📄 Detailed Song Info: View metadata like album, artist, genre, credits, and cover art.
-- 💾 Save to Library: Add your favorite tracks directly to your Spotify collection.
-- 🤖 AI Summaries: Google Gemini powers unique song descriptions based on themes and moods.
-- 🧭 Smooth Navigation: Intuitive React Router flow for effortless browsing.
-## Technologies
-- Frontend: React.js, React Router, Tailwind CSS
-- Backend: Node.js with secure token management, API routing, and AI integration
-- Deployment: Docker containerized app running on AWS Elastic Beanstalk (migrated to Vercel because I'm broke) with GitHub Actions CI/CD
-- APIs: Spotify Web API and Google Gemini AI API for personalized music insights
-`;
+## Stack
+
+React, React Router, Tailwind CSS, Node.js, Docker, GitHub Actions, Spotify Web API, and Google Gemini API.
+
+## Links
+
+- [Open the live product](https://spot-on-six.vercel.app/)
+- [View the repository](https://github.com/minhpham1810/SpotOn)`;
 
 export default content;

@@ -1,33 +1,25 @@
-"use client";
-
-import {
-  VscChromeClose,
-  VscChromeMaximize,
-  VscChromeMinimize,
-} from "react-icons/vsc";
-
 export default function TitleBar() {
   return (
-    <div className="h-8 shrink-0 border-b border-vscode-border bg-vscode-activityBar px-2 select-none">
-      <div className="flex h-full min-w-0 items-center space-x-3 sm:space-x-4">
-        <div className="flex items-center space-x-1.5 group">
-          <button className="flex h-3 w-3 items-center justify-center rounded-full bg-[#ff5f57]">
-            <VscChromeClose className="h-2 w-2 text-black/60 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
-          </button>
-          <button className="flex h-3 w-3 items-center justify-center rounded-full bg-[#ffbd2e]">
-            <VscChromeMinimize className="h-2 w-2 text-black/60 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
-          </button>
-          <button className="flex h-3 w-3 items-center justify-center rounded-full bg-[#28c940]">
-            <VscChromeMaximize className="h-2 w-2 text-black/60 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
-          </button>
+    <header className="relative h-8 shrink-0 select-none border-b border-vscode-border bg-vscode-activityBar px-3">
+      <div className="grid h-full grid-cols-[1fr_auto_1fr] items-center">
+        <div
+          aria-hidden="true"
+          className="flex items-center gap-1.5"
+        >
+          <span className="h-2.5 w-2.5 rounded-full bg-[#b85e47]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#b8a36c]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#738b70]" />
         </div>
-        <div className="flex min-w-0 items-center space-x-2">
-          <span className="hidden text-sm sm:inline">VS</span>
-          <span className="truncate text-xs sm:text-sm">
-            minhpham1810.github.io - Visual Studio Code Version
+        <p className="truncate px-4 font-mono text-[0.63rem] tracking-[0.03em] text-vscode-textMuted sm:text-[0.68rem]">
+          minhpham.dev / portfolio.code-workspace
+        </p>
+        <div className="hidden items-center justify-self-end gap-2 sm:flex">
+          <span className="h-1.5 w-1.5 bg-[#789678]" />
+          <span className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-vscode-textMuted">
+            available · 2027
           </span>
         </div>
       </div>
-    </div>
+    </header>
   );
 }

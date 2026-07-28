@@ -114,30 +114,46 @@ export default function Editor({
   ];
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-vscode-editor">
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-vscode-editor">
       {/* Tabs */}
-      <div className="flex bg-vscode-tabInactive border-b border-vscode-border overflow-x-auto">
+      <div
+        role="tablist"
+        aria-label="Open files"
+        className="flex min-h-9 overflow-x-auto border-b border-vscode-border bg-vscode-tabInactive"
+      >
         {openTabs.length > 0
           ? openTabs.map((tab) => {
               const isActive = activeTab === tab;
               return (
                 <div
                   key={tab}
-                  className={`flex items-center px-3 py-2 cursor-pointer border-r border-vscode-border min-w-fit group relative transition-colors duration-100 ${
+                  className={`group relative flex min-w-fit items-center border-r border-vscode-border transition-colors duration-200 ${
                     isActive
-                      ? "bg-vscode-tabActive border-t-2 border-t-vscode-statusBar"
-                      : "bg-vscode-tabInactive hover:bg-vscode-highlight"
+                      ? "bg-vscode-tabActive text-vscode-text"
+                      : "bg-vscode-tabInactive text-vscode-textMuted hover:bg-vscode-highlight/70 hover:text-vscode-text"
                   }`}
-                  onClick={() => onTabChange(tab)}
                   onMouseDown={(e) => handleMiddleClick(e, tab)}
                 >
-                  <span className="text-sm mr-2">{tab}</span>
+                  {isActive && (
+                    <span className="absolute inset-x-0 top-0 h-px bg-vscode-accent" />
+                  )}
                   <button
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => onTabChange(tab)}
+                    className="h-full py-2 pl-3 pr-2 text-xs"
+                  >
+                    {tab === "README.md" ? "start-here.md" : tab}
+                  </button>
+                  <button
+                    type="button"
+                    aria-label={`Close ${tab}`}
                     className={`${
                       isActive
                         ? "opacity-100"
                         : "opacity-0 group-hover:opacity-100"
-                    } hover:bg-vscode-border rounded p-0.5 transition-all`}
+                    } mr-2 rounded-sm p-0.5 transition-all hover:bg-vscode-border`}
                     onClick={(e) => handleCloseClick(e, tab)}
                     title="Close (Ctrl+W)"
                   >
@@ -151,11 +167,11 @@ export default function Editor({
 
       {/* Toolbar for markdown files */}
       {activeTab && isMarkdownFile(activeTab) && (
-        <div className="flex items-center justify-end px-4 py-1 bg-vscode-sidebar border-b border-vscode-border">
+        <div className="flex min-h-8 items-center justify-end border-b border-vscode-border bg-vscode-sidebar px-3">
           <div className="flex items-center gap-2">
             <button
               onClick={() => togglePreviewMode(activeTab)}
-              className="flex items-center gap-2 px-3 py-1 text-xs hover:bg-vscode-highlight rounded transition-colors"
+              className="flex items-center gap-2 rounded-sm px-2.5 py-1 text-[0.7rem] text-vscode-textMuted transition-colors hover:bg-vscode-highlight hover:text-vscode-text"
               title="Toggle Preview (Ctrl+Shift+V)"
             >
               {getPreviewMode(activeTab) === "code" && (
@@ -188,7 +204,10 @@ export default function Editor({
       <div className="relative flex-1 min-h-0 overflow-hidden">
         {activeTab ? (
           <div key={activeTab} className="editor-fade-in h-full min-h-0 flex flex-1 overflow-hidden">
-            <div ref={scrollRef} className="relative flex-1 min-h-0 overflow-y-auto">
+            <div
+              ref={scrollRef}
+              className="relative min-h-0 flex-1 overflow-x-hidden overflow-y-auto"
+            >
               {findOpen && (
                 <FindPanel
                   query={findQuery}
@@ -222,24 +241,25 @@ export default function Editor({
             )}
           </div>
         ) : (
-          <div className="flex items-center justify-center h-full bg-vscode-editor select-none relative overflow-hidden">
+          <div className="relative flex h-full select-none items-center justify-center overflow-hidden bg-vscode-editor">
             {/* Background watermark */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span className="text-[18rem] font-bold text-white/[0.025] tracking-widest font-mono leading-none">
+              <span className="font-display text-[18rem] font-medium leading-none tracking-[-0.08em] text-white/[0.018]">
                 MP
               </span>
             </div>
             {/* Foreground content */}
-            <div className="relative z-10 text-center max-w-md px-8">
-              <div className="text-4xl font-bold text-white/20 mb-1 font-mono tracking-wider">
-                Minh Pham
+            <div className="relative z-10 max-w-lg px-8 text-left">
+              <div className="font-display text-5xl leading-none tracking-[-0.05em] text-white/35">
+                The workspace is clear.
               </div>
-              <div className="text-xs text-vscode-textMuted mb-10 tracking-widest uppercase">
-                Software Developer
+              <div className="mb-10 mt-3 max-w-sm text-sm leading-6 text-vscode-textMuted">
+                Open a document to review work, experience, and the systems
+                behind each project.
               </div>
-              <div className="grid grid-cols-2 gap-6 text-left mb-8">
+              <div className="grid grid-cols-2 gap-8 text-left">
                 <div>
-                  <p className="text-xs uppercase text-vscode-textMuted tracking-widest mb-3 font-semibold">
+                  <p className="mb-3 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-vscode-textMuted">
                     Start
                   </p>
                   {quickOpenFiles
@@ -248,7 +268,7 @@ export default function Editor({
                       <button
                         key={f.name}
                         onClick={() => onFileClick?.(f.name)}
-                        className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors mb-2 w-full text-left"
+                        className="mb-2 flex w-full items-center gap-2 text-left text-sm text-vscode-text transition-colors hover:text-vscode-accent"
                       >
                         <VscFile className="w-3.5 h-3.5 shrink-0" />
                         <span>{f.name}</span>
@@ -256,7 +276,7 @@ export default function Editor({
                     ))}
                 </div>
                 <div>
-                  <p className="text-xs uppercase text-vscode-textMuted tracking-widest mb-3 font-semibold">
+                  <p className="mb-3 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-vscode-textMuted">
                     Recent
                   </p>
                   {quickOpenFiles
@@ -265,7 +285,7 @@ export default function Editor({
                       <button
                         key={f.name}
                         onClick={() => onFileClick?.(f.name)}
-                        className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors mb-2 w-full text-left"
+                        className="mb-2 flex w-full items-center gap-2 text-left text-sm text-vscode-text transition-colors hover:text-vscode-accent"
                       >
                         <VscFile className="w-3.5 h-3.5 shrink-0" />
                         <span>{f.name}</span>
@@ -273,8 +293,8 @@ export default function Editor({
                     ))}
                 </div>
               </div>
-              <div className="border-t border-vscode-border/50 pt-5 text-xs text-vscode-textMuted">
-                <kbd className="bg-vscode-activityBar border border-vscode-border px-1.5 py-0.5 rounded font-mono">
+              <div className="mt-8 border-t border-vscode-border/50 pt-5 text-xs text-vscode-textMuted">
+                <kbd className="border border-vscode-border bg-vscode-activityBar px-1.5 py-0.5 font-mono">
                   Ctrl+P
                 </kbd>
                 <span className="ml-2">to open any file</span>

@@ -16,7 +16,7 @@ export default function VSCodeWindow() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [openTabs, setOpenTabs] = useState<string[]>(["README.md"]);
   const [previewTrigger, setPreviewTrigger] = useState(0);
-  const [terminalOpen, setTerminalOpen] = useState(true);
+  const [terminalOpen, setTerminalOpen] = useState(false);
   const [terminalHeight, setTerminalHeight] = useState(200);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [paletteMode, setPaletteMode] = useState<"files" | "commands">("files");
@@ -213,14 +213,14 @@ export default function VSCodeWindow() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-vscode-bg text-vscode-text">
+    <div className="flex h-dvh min-h-dvh flex-col bg-vscode-bg text-vscode-text">
       <TitleBar />
       <div className="flex flex-1 overflow-hidden min-h-0">
         <ActivityBar
           activeItem={activeSidebarItem}
           onItemClick={handleSidebarItemClick}
         />
-        <div className="relative flex flex-1 min-h-0 overflow-hidden">
+        <div className="relative flex min-h-0 min-w-0 flex-1 overflow-hidden">
           {isMobile && sidebarOpen && (
             <button
               type="button"
@@ -231,57 +231,71 @@ export default function VSCodeWindow() {
           )}
           <Sidebar
             activeItem={activeSidebarItem}
+            activeFile={activeTab}
             onFileClick={handleFileClick}
             isOpen={sidebarOpen}
             isMobile={isMobile}
             onClose={() => setSidebarOpen(false)}
           />
-          <div className="flex flex-col flex-1 overflow-hidden min-w-0">
-          <Editor
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-            openTabs={openTabs}
-            onCloseTab={handleCloseTab}
-            previewTrigger={previewTrigger}
-            onFileClick={handleFileClick}
-            findOpen={findOpen}
-            findQuery={findQuery}
-            findCase={findCase}
-            findRegex={findRegex}
-            findActiveMatch={findActiveMatch}
-            findMatchCount={findMatchCount}
-            onFindMatchCountChange={(n) => {
-              setFindMatchCount(n);
-              setFindActiveMatch(0);
-            }}
-            onFindClose={() => setFindOpen(false)}
-            onFindChange={(q) => {
-              setFindQuery(q);
-              setFindActiveMatch(0);
-            }}
-            onFindNext={() => setFindActiveMatch((i) => (findMatchCount > 0 ? (i + 1) % findMatchCount : 0))}
-            onFindPrev={() => setFindActiveMatch((i) => (findMatchCount > 0 ? (i - 1 + findMatchCount) % findMatchCount : 0))}
-            onFindToggleCase={() => setFindCase((p) => !p)}
-            onFindToggleRegex={() => setFindRegex((p) => !p)}
-            activeContent={contentMap[activeTab] ?? ""}
-          />
-          {terminalOpen && (
-            <div
-              style={{ height: isMobile ? Math.min(terminalHeight, 180) : terminalHeight }}
-              className="flex-shrink-0 flex flex-col border-t border-vscode-border"
-            >
+          <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+            <Editor
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+              openTabs={openTabs}
+              onCloseTab={handleCloseTab}
+              previewTrigger={previewTrigger}
+              onFileClick={handleFileClick}
+              findOpen={findOpen}
+              findQuery={findQuery}
+              findCase={findCase}
+              findRegex={findRegex}
+              findActiveMatch={findActiveMatch}
+              findMatchCount={findMatchCount}
+              onFindMatchCountChange={(n) => {
+                setFindMatchCount(n);
+                setFindActiveMatch(0);
+              }}
+              onFindClose={() => setFindOpen(false)}
+              onFindChange={(q) => {
+                setFindQuery(q);
+                setFindActiveMatch(0);
+              }}
+              onFindNext={() =>
+                setFindActiveMatch((i) =>
+                  findMatchCount > 0 ? (i + 1) % findMatchCount : 0
+                )
+              }
+              onFindPrev={() =>
+                setFindActiveMatch((i) =>
+                  findMatchCount > 0
+                    ? (i - 1 + findMatchCount) % findMatchCount
+                    : 0
+                )
+              }
+              onFindToggleCase={() => setFindCase((p) => !p)}
+              onFindToggleRegex={() => setFindRegex((p) => !p)}
+              activeContent={contentMap[activeTab] ?? ""}
+            />
+            {terminalOpen && (
               <div
-                className="h-1 cursor-row-resize hover:bg-vscode-statusBar transition-colors flex-shrink-0"
-                onMouseDown={isMobile ? undefined : startResize}
-              />
-              <div className="flex-1 overflow-hidden">
-                <Terminal
-                  onOpenFile={handleFileClick}
-                  onClose={() => setTerminalOpen(false)}
+                style={{
+                  height: isMobile ? Math.min(terminalHeight, 180) : terminalHeight,
+                }}
+                className="flex flex-shrink-0 flex-col border-t border-vscode-border"
+              >
+                <div
+                  aria-label="Resize terminal"
+                  className="h-1 flex-shrink-0 cursor-row-resize transition-colors hover:bg-vscode-statusBar"
+                  onMouseDown={isMobile ? undefined : startResize}
                 />
+                <div className="flex-1 overflow-hidden">
+                  <Terminal
+                    onOpenFile={handleFileClick}
+                    onClose={() => setTerminalOpen(false)}
+                  />
+                </div>
               </div>
-            </div>
-          )}
+            )}
           </div>
         </div>
       </div>

@@ -1,16 +1,29 @@
-const content = `# FeelBit – Your Daily Mood Companion
-FeelBit is a thoughtful mood-tracking app designed to help users explore and understand their emotions better. By combining quick mood logging with personal journaling, it empowers users to reflect on their mental well-being and spot emotional patterns.
-## Links
-- [GitHub Repository](https://github.com/minhpham1810/FeelBit)
-## Key Features
-- 😊 Track Your Mood: Select an emoji from 1 to 5 that matches how you feel each day.
-- 🔍 Identify Triggers: Pick from common life factors like school, work, or relationships that might affect your mood.
-- 📝 Express Yourself: Write personal journal entries to capture thoughts and feelings in your own words.
-## Technologies
-- Frontend: JavaFX
-- Backend: Java, MongoDB
-- Deployment: Build and run locally using Gradle
-- APIs: Google Gemini API
+const content = `# FeelBit
+
+### A desktop mood journal built around quick logging and private reflection.
+
+## Product
+
+FeelBit lets a user record a daily mood, associate it with common triggers, and add a private journal entry. The history view brings those records together so patterns can be reviewed over time.
+
+## What I built
+
+The JavaFX interface handles the logging and history workflows. Java services persist entries in MongoDB, while a Gemini integration supports generated reflection prompts.
+
+## Engineering focus
+
+- Model mood, trigger, and journal data as one daily record
+- Keep persistence separate from JavaFX view logic
+- Build and package the application with Gradle
+- Treat generated prompts as optional support for reflection
+
+## Stack
+
+Java, JavaFX, MongoDB, Gradle, and Google Gemini API.
+
+## Repository
+
+[View FeelBit on GitHub](https://github.com/minhpham1810/FeelBit)
 `;
 
 export default content;

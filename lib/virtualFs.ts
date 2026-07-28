@@ -15,11 +15,12 @@ export const VIRTUAL_FS: VFSDir = {
     { type: 'file', name: 'contact.md' },
     {
       type: 'dir',
-      name: 'my_work',
+      name: 'selected-work',
       children: [
         { type: 'file', name: 'oira-chatbot.md' },
         { type: 'file', name: 'kalmus-web.md' },
         { type: 'file', name: 'SpotOn.md' },
+        { type: 'file', name: 'secure-auth.md' },
         { type: 'file', name: 'FeelBit.md' },
         { type: 'file', name: 'ecommerce-ml.md' },
         { type: 'file', name: 'architecture-of-sleep.md' },

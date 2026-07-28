@@ -1,33 +1,40 @@
-const content = `# OIRA Chatbot — AI-Powered Course Catalog Assistant
+const content = `# OIRA course catalog assistant
 
-### Conversational AI for navigating Bucknell University's course catalog.
+### A citation-based retrieval product for navigating Bucknell's academic catalog.
 
-OIRA Chatbot is a full-stack AI assistant built for Bucknell University's OIRA team. Students and advisors can ask natural language questions about course offerings, requirements, and schedules—and receive cited, contextually accurate answers powered by a RAG pipeline over the university's catalog documents.
+> **Status:** University preview, with production deployment planned for Fall 2026.
 
-> **Status:** Currently under university preview. Expected production deployment: Fall 2026.
+## Context
 
-## Links
-- [GitHub Repository](https://github.com/OIRA-Chatbot-Project/OIRA-Chatbot)
+Course and program information lives across long catalog documents. Students and advisors need direct answers, but those answers must remain grounded in official university sources.
+
+## My role
+
+I developed the full-stack application: a Next.js interface, FastAPI services, authentication, persistent sessions, retrieval, and feedback instrumentation.
+
+## System
+
+Source PDFs and Google Docs are ingested, split, embedded, and stored in ChromaDB. A query moves through the FastAPI backend to the retrieval layer, which selects relevant passages for OpenAI. The generated response returns with citations to the source material.
+
+SQLite and UUID-based sessions preserve chat history. Clerk protects user-specific history and feedback. Response ratings and fallback instrumentation create a path for evaluating retrieval quality rather than treating generation as a black box.
+
+## Engineering decisions
+
+- Ground every answer in retrieved university material and expose citations in the interface.
+- Keep retrieval and generation behind a FastAPI boundary so the client remains independent of model orchestration.
+- Persist session and feedback data separately from the vector store.
+- Include OCR as an optional path for extracting information from schedule images.
 
 ## Demo
+
 ![video](oira_chatbot_demo.mp4)
 
-## Key Features
-- 🤖 Conversational Search: Natural language queries over the full Bucknell course catalog with cited answers.
-- 🔍 RAG Pipeline: Ingests PDFs and Google Docs, embeds content with OpenAI, and retrieves relevant passages via ChromaDB vector search.
-- 💬 Session Management: Saves chat history and supports session restoration across visits.
-- 👍 User Feedback: Thumbs up/down on responses to track answer quality and support model improvement.
-- 🔐 Authentication: Clerk-based user auth with session-specific chat experiences.
-- 🖼️ OCR Support: Optional Tesseract OCR for extracting course info from uploaded schedule images.
+## Stack
 
-## Technologies
-- Backend: Python, FastAPI, LangChain, ChromaDB, OpenAI API, SQLAlchemy, SQLite
-- Frontend: Next.js (App Router), React, Tailwind CSS, Clerk
-- Testing: Jest (frontend component tests)
-- Deployment: Bucknell University infrastructure (production Fall 2026)
+Python, FastAPI, LangChain, ChromaDB, OpenAI API, SQLAlchemy, SQLite, Next.js, React, Tailwind CSS, Clerk, and Jest.
 
-## How It Works
-Source documents (PDFs, Google Docs) are ingested and embedded into ChromaDB → user queries are forwarded from the chat UI to the FastAPI backend → relevant catalog passages are retrieved and passed to OpenAI → the model generates a cited answer → users can rate response quality via thumbs up/down feedback.
-`;
+## Repository
+
+[View the OIRA Chatbot source](https://github.com/OIRA-Chatbot-Project/OIRA-Chatbot)`;
 
 export default content;

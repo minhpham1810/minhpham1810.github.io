@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import MarkdownPreview from "./MarkdownPreview";
 import PDFPreview from "./PDFPreview";
+import StartHere from "./StartHere";
 import { contentMap } from "@/lib/contentMap";
 
 interface FileContentProps {
@@ -28,7 +29,10 @@ export default function FileContent({
 }: FileContentProps) {
   const getContent = (file: string): string => {
     if (file === "resume.pdf") return "PDF_FILE";
-    return contentMap[file] ?? "# File not found\n\nThe requested file does not exist.";
+    return (
+      contentMap[file] ??
+      "# File not found\n\nThat path is not part of this workspace.\n\n[Return to start](README.md)"
+    );
   };
 
   const content = getContent(filename);
@@ -82,9 +86,10 @@ export default function FileContent({
         const mark = document.createElement("mark");
         mark.setAttribute("data-find", "true");
         mark.setAttribute("data-match-index", String(totalMatches));
-        mark.style.background = totalMatches === activeMatchIndex ? "#f57c00" : "#ffeb3b";
-        mark.style.color = "#000";
-        mark.style.borderRadius = "2px";
+        mark.style.background =
+          totalMatches === activeMatchIndex ? "#d88970" : "#6f5a4e";
+        mark.style.color =
+          totalMatches === activeMatchIndex ? "#17120f" : "#f0f0e8";
         mark.textContent = m[0];
         frag.appendChild(mark);
         totalMatches++;
@@ -101,7 +106,7 @@ export default function FileContent({
     if (!el) return;
     el.querySelectorAll<HTMLElement>("mark[data-find]").forEach((m) => {
       const idx = parseInt(m.getAttribute("data-match-index") ?? "-1");
-      m.style.background = idx === activeMatchIndex ? "#f57c00" : "#ffeb3b";
+      m.style.background = idx === activeMatchIndex ? "#d88970" : "#6f5a4e";
       if (idx === activeMatchIndex) {
         m.scrollIntoView({ block: "nearest", behavior: "smooth" });
       }
@@ -145,7 +150,7 @@ export default function FileContent({
                 return (
                   <div
                     key={index}
-                    className="text-blue-400 font-bold text-xl mb-2"
+                    className="mb-2 text-xl font-bold text-[#c98d79]"
                   >
                     {line.slice(2)}
                   </div>
@@ -155,7 +160,7 @@ export default function FileContent({
                 return (
                   <div
                     key={index}
-                    className="text-blue-300 font-bold text-lg mb-2"
+                    className="mb-2 text-lg font-bold text-[#c7b882]"
                   >
                     {line.slice(3)}
                   </div>
@@ -163,7 +168,7 @@ export default function FileContent({
               }
               if (line.startsWith("### ")) {
                 return (
-                  <div key={index} className="text-blue-200 font-bold mb-1">
+                  <div key={index} className="mb-1 font-bold text-[#a7b5c2]">
                     {line.slice(4)}
                   </div>
                 );
@@ -172,7 +177,7 @@ export default function FileContent({
               // Lists
               if (line.startsWith("- ") || line.startsWith("* ")) {
                 return (
-                  <div key={index} className="text-green-400">
+                  <div key={index} className="text-[#8fb4a8]">
                     {line}
                   </div>
                 );
@@ -181,7 +186,7 @@ export default function FileContent({
               // Links
               if (line.includes("[") && line.includes("]")) {
                 return (
-                  <div key={index} className="text-blue-400">
+                  <div key={index} className="text-[#c98d79]">
                     {line}
                   </div>
                 );
@@ -190,7 +195,7 @@ export default function FileContent({
               // Code blocks
               if (line.startsWith("```")) {
                 return (
-                  <div key={index} className="text-yellow-400">
+                  <div key={index} className="text-[#c7b882]">
                     {line}
                   </div>
                 );
@@ -211,7 +216,7 @@ export default function FileContent({
               // Bold text
               if (line.includes("**")) {
                 return (
-                  <div key={index} className="text-yellow-300">
+                  <div key={index} className="text-[#d0c69c]">
                     {line}
                   </div>
                 );
@@ -233,8 +238,12 @@ export default function FileContent({
   // Render based on preview mode
   if (previewMode === "preview") {
     return (
-      <div ref={containerRef} className="relative flex-1">
-        <MarkdownPreview content={content} onFileClick={onFileClick} />
+      <div ref={containerRef} className="relative min-w-0 flex-1">
+        {filename === "README.md" ? (
+          <StartHere onFileClick={onFileClick} />
+        ) : (
+          <MarkdownPreview content={content} onFileClick={onFileClick} />
+        )}
       </div>
     );
   } else if (previewMode === "split") {
@@ -244,7 +253,11 @@ export default function FileContent({
           {renderCodeView()}
         </div>
         <div className="flex-1 overflow-auto bg-vscode-bg">
-          <MarkdownPreview content={content} onFileClick={onFileClick} />
+          {filename === "README.md" ? (
+            <StartHere onFileClick={onFileClick} />
+          ) : (
+            <MarkdownPreview content={content} onFileClick={onFileClick} />
+          )}
         </div>
       </div>
     );

@@ -192,16 +192,17 @@ export default function Terminal({ onOpenFile, onClose }: TerminalProps) {
 
   return (
     <div
-      className="flex flex-col h-full bg-vscode-bg text-vscode-text font-mono text-[13px]"
+      className="flex h-full flex-col bg-[#0e100d] font-mono text-[13px] text-vscode-text"
       onClick={() => inputRef.current?.focus()}
     >
-      <div className="flex items-center justify-between px-3 border-b border-vscode-border bg-vscode-tabInactive h-8 flex-shrink-0">
-        <span className="text-[11px] text-vscode-text border-t-2 border-[#007acc] px-1 h-full flex items-center">
+      <div className="flex h-8 flex-shrink-0 items-center justify-between border-b border-vscode-border bg-vscode-tabInactive px-3">
+        <span className="flex h-full items-center border-t border-vscode-accent px-1 text-[10px] uppercase tracking-[0.14em] text-vscode-text">
           TERMINAL
         </span>
         <button
           onClick={onClose}
-          className="text-vscode-textMuted hover:text-vscode-text text-lg leading-none px-1"
+          aria-label="Close terminal"
+          className="px-1 text-lg leading-none text-vscode-textMuted hover:text-vscode-text"
         >
           &times;
         </button>
@@ -216,13 +217,14 @@ export default function Terminal({ onOpenFile, onClose }: TerminalProps) {
           </pre>
         ))}
         <div className="flex items-center">
-          <span className="text-green-400 select-none whitespace-pre">{prompt()}</span>
+          <span className="select-none whitespace-pre text-[#8fa889]">{prompt()}</span>
           <input
             ref={inputRef}
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 bg-transparent outline-none text-vscode-text caret-white min-w-0"
+            aria-label="Terminal command"
+            className="min-w-0 flex-1 bg-transparent text-vscode-text caret-vscode-accent outline-none"
             spellCheck={false}
             autoComplete="off"
             autoCorrect="off"

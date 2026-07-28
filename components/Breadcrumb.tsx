@@ -3,22 +3,36 @@
 import { VscChevronRight } from "react-icons/vsc";
 
 const filePaths: Record<string, string[]> = {
-  "README.md": ["MINH'S PORTFOLIO", "README.md"],
-  "about.md": ["MINH'S PORTFOLIO", "about.md"],
-  "experience.md": ["MINH'S PORTFOLIO", "experience.md"],
-  "skills.md": ["MINH'S PORTFOLIO", "skills.md"],
-  "contact.md": ["MINH'S PORTFOLIO", "contact.md"],
-  "resume.pdf": ["MINH'S PORTFOLIO", "resume.pdf"],
-  "portfolio-website.md": ["MINH'S PORTFOLIO", "projects", "portfolio-website.md"],
-  "SpotOn.md": ["MINH'S PORTFOLIO", "projects", "SpotOn.md"],
-  "FeelBit.md": ["MINH'S PORTFOLIO", "projects", "FeelBit.md"],
-  "ecommerce-ml.md": ["MINH'S PORTFOLIO", "projects", "ecommerce-ml.md"],
+  "README.md": ["minhpham.dev", "start-here.md"],
+  "about.md": ["minhpham.dev", "about.md"],
+  "experience.md": ["minhpham.dev", "experience.md"],
+  "skills.md": ["minhpham.dev", "skills.md"],
+  "contact.md": ["minhpham.dev", "contact.md"],
+  "resume.pdf": ["minhpham.dev", "resume.pdf"],
 };
 
+const projectFiles = new Set([
+  "oira-chatbot.md",
+  "kalmus-web.md",
+  "SpotOn.md",
+  "secure-auth.md",
+  "ecommerce-ml.md",
+  "architecture-of-sleep.md",
+  "FeelBit.md",
+  "portfolio-website.md",
+]);
+
 export default function Breadcrumb({ activeTab }: { activeTab: string }) {
-  const segments = filePaths[activeTab] ?? [activeTab];
+  const segments =
+    filePaths[activeTab] ??
+    (projectFiles.has(activeTab)
+      ? ["minhpham.dev", "selected-work", activeTab]
+      : ["minhpham.dev", activeTab]);
   return (
-    <div className="h-7 bg-vscode-editor border-b border-vscode-border flex items-center px-4 text-xs text-vscode-textMuted overflow-hidden">
+    <nav
+      aria-label="Breadcrumb"
+      className="flex h-7 items-center overflow-hidden border-b border-vscode-border bg-vscode-editor px-4 font-mono text-[0.63rem] text-vscode-textMuted"
+    >
       {segments.map((seg, i) => (
         <span key={i} className="flex items-center shrink-0">
           {i > 0 && (
@@ -29,6 +43,6 @@ export default function Breadcrumb({ activeTab }: { activeTab: string }) {
           </span>
         </span>
       ))}
-    </div>
+    </nav>
   );
 }
