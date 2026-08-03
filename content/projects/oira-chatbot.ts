@@ -18,6 +18,8 @@ Source PDFs and Google Docs are ingested, split, embedded, and stored in ChromaD
 
 SQLite and UUID-based sessions preserve chat history. Clerk protects user-specific history and feedback. Response ratings and fallback instrumentation create a path for evaluating retrieval quality rather than treating generation as a black box.
 
+Query classification, conversation summarization, and user-context extraction improve retrieval and response quality across multi-turn conversations.
+
 ## Engineering decisions
 
 - Ground every answer in retrieved university material and expose citations in the interface.

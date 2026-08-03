@@ -16,7 +16,7 @@ The browser uploads large video files in chunks. Next.js API routes assemble the
 
 ## Engineering decisions
 
-- Use parallel chunked upload so large files can recover from individual request failures.
+- Upload videos in four concurrent requests with 5–25 MB chunks, cutting large-file upload time by 30–50% while allowing individual request recovery.
 - Model the long-running workflow explicitly as pending, running, completed, and failed states.
 - Store each job's inputs and outputs together on the shared filesystem instead of adding a database that the workflow did not require.
 - Keep institutional authentication compatible with the university's Shibboleth and CAS headers.

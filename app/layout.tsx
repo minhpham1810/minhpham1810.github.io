@@ -23,12 +23,13 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://minhpham1810.github.io"),
   title: {
-    default: "Minh Pham — Full-Stack & Backend Engineer",
-    template: "%s — Minh Pham",
+    default: "Khoa Minh Pham — Full-Stack & Backend Engineer",
+    template: "%s — Khoa Minh Pham",
   },
   description:
-    "Minh Pham is a full-stack and backend-focused software engineer building reliable APIs, data systems, and useful web products.",
+    "Khoa Minh Pham is a full-stack and backend-focused software engineer building reliable APIs, data systems, interactive experiences, and useful web products.",
   keywords: [
+    "Khoa Minh Pham",
     "Minh Pham",
     "full-stack engineer",
     "backend engineer",
@@ -36,12 +37,12 @@ export const metadata: Metadata = {
     "Next.js",
     "FastAPI",
   ],
-  authors: [{ name: "Minh Pham" }],
+  authors: [{ name: "Khoa Minh Pham" }],
   openGraph: {
     type: "website",
     url: "/",
-    siteName: "Minh Pham — Portfolio",
-    title: "Minh Pham — Full-Stack & Backend Engineer",
+    siteName: "Khoa Minh Pham — Portfolio",
+    title: "Khoa Minh Pham — Full-Stack & Backend Engineer",
     description:
       "Selected full-stack and backend work, experience, and engineering case studies.",
   },

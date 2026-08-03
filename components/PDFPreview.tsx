@@ -1,11 +1,10 @@
 "use client";
 
 interface PDFPreviewProps {
-  googleDriveUrl: string;
+  pdfUrl: string;
 }
 
-export default function PDFPreview({ googleDriveUrl }: PDFPreviewProps) {
-  // Convert Google Drive link to embeddable format
+export default function PDFPreview({ pdfUrl }: PDFPreviewProps) {
   const getEmbedUrl = (url: string) => {
     // Extract file ID from various Google Drive URL formats
     const patterns = [/\/file\/d\/([^\/]+)/, /id=([^&]+)/, /\/d\/([^\/]+)/];
@@ -25,7 +24,7 @@ export default function PDFPreview({ googleDriveUrl }: PDFPreviewProps) {
     return url;
   };
 
-  const embedUrl = getEmbedUrl(googleDriveUrl);
+  const embedUrl = getEmbedUrl(pdfUrl);
 
   return (
     <div className="w-full h-full bg-vscode-bg">

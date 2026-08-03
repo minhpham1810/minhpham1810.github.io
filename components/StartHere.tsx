@@ -38,14 +38,14 @@ export default function StartHere({ onFileClick }: StartHereProps) {
             Product-aware.
           </h1>
           <p className="mt-8 max-w-[59ch] text-pretty text-base leading-7 text-vscode-textMuted sm:text-lg sm:leading-8">
-            I&apos;m Minh Pham, a full-stack engineer focused on APIs, data
+            I&apos;m Khoa Minh Pham, a full-stack engineer focused on APIs, data
             flow, and software that keeps working beyond the demo.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
             <button
               type="button"
-              onClick={() => onFileClick?.("oira-chatbot.md")}
+              onClick={() => onFileClick?.("SpotOn.md")}
               className="group inline-flex items-center gap-3 bg-vscode-accent px-5 py-3 text-sm font-semibold text-[#17120f] transition duration-200 hover:-translate-y-0.5 hover:bg-[#cd735b] active:translate-y-0"
             >
               Review selected work
@@ -67,8 +67,7 @@ export default function StartHere({ onFileClick }: StartHereProps) {
             Current focus
           </p>
           <p className="mt-4 text-pretty text-base leading-7 text-vscode-text">
-            Full-stack systems with strong backend boundaries, useful
-            interfaces, and grounded AI features.
+            I&apos;m currently sharpening my skills in system design, distributed systems, and evaluation patterns for agentic and retrieval-augmented applications.
           </p>
           <dl className="mt-9 space-y-6 border-t border-vscode-border pt-6">
             <div>
@@ -107,18 +106,18 @@ export default function StartHere({ onFileClick }: StartHereProps) {
         <div className="mt-7 grid grid-cols-[minmax(0,1fr)] gap-px overflow-hidden bg-vscode-border md:grid-cols-[1.2fr_0.8fr]">
           <button
             type="button"
-            onClick={() => onFileClick?.("oira-chatbot.md")}
+            onClick={() => onFileClick?.("SpotOn.md")}
             className="group bg-vscode-bg p-6 text-left transition-colors duration-200 hover:bg-vscode-surface sm:p-8"
           >
             <span className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-vscode-accent">
               Selected build · 01
             </span>
             <span className="mt-5 block font-display text-3xl leading-none tracking-[-0.035em] text-[#eeeee7] sm:text-4xl">
-              OIRA course catalog assistant
+              SpotOn music research platform
             </span>
             <span className="mt-4 block max-w-[52ch] text-sm leading-6 text-vscode-textMuted sm:text-[0.95rem]">
-              A citation-based RAG product with a FastAPI backend, persistent
-              sessions, authentication, and retrieval-quality feedback.
+              An AI-powered music research product with Spotify OAuth,
+              agentic web research, streamed progress, and sourced reports.
             </span>
             <span className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-vscode-text">
               Read the case study
@@ -140,7 +139,7 @@ export default function StartHere({ onFileClick }: StartHereProps) {
               <li className="border-b border-vscode-border pb-3">
                 PostgreSQL · Docker · AWS
               </li>
-              <li>RAG systems · CI/CD · API design</li>
+              <li>RAG systems · WebSockets · API design</li>
             </ul>
           </div>
         </div>

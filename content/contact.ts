@@ -5,7 +5,8 @@ I'm looking for full-stack and backend new-grad opportunities beginning around m
 ## Contact
 
 - **Email:** [minhpham181004@gmail.com](mailto:minhpham181004@gmail.com)
-- **LinkedIn:** [Minh Pham](https://www.linkedin.com/in/khoaminhpham18/)
+- **Phone:** [+1 (272) 788-0427](tel:+12727880427)
+- **LinkedIn:** [Khoa Minh Pham](https://www.linkedin.com/in/khoaminhpham18/)
 - **GitHub:** [@minhpham1810](https://github.com/minhpham1810)
 
 Email is the most direct way to reach me. I am based in Lewisburg, Pennsylvania, and open to discussing software engineering roles across locations.`;

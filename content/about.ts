@@ -1,8 +1,8 @@
-const content = `# About Minh
+const content = `# About Khoa Minh Pham
 
-I'm a computer science and data science student at Bucknell University. I like work that crosses boundaries: backend services that need a clear interface, AI features that need reliable grounding, and data pipelines that eventually have to make sense to a person.
+I'm a computer science and data science student at Bucknell University and an Interactive Developer Intern at JPL Integrated Communications. I like work that crosses boundaries: backend services that need a clear interface, interactive products that need reliable infrastructure, and data pipelines that eventually have to make sense to a person.
 
-![Minh Pham outdoors](IMG_7714.JPEG|38%)
+![Khoa Minh Pham outdoors](IMG_7714.JPEG|38%)
 
 ## What shapes my work
 
@@ -21,7 +21,7 @@ My strongest projects tend to involve:
 
 *August 2023 – May 2027 · Lewisburg, Pennsylvania*
 
-- GPA: 3.39
+- GPA: 3.34
 - Dean's Scholarship and Dean's List
 - Coursework includes Data Structures and Algorithms, Software Engineering and Design, Applied Machine Learning, and Computer Systems
 

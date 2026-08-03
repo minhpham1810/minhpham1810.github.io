@@ -115,11 +115,10 @@ export default function FileContent({
 
   // Handle PDF files
   if (content === "PDF_FILE") {
-    const googleDriveUrl =
-      "https://drive.google.com/file/d/1rNd_H9fLWWmmH7zTViRTOYi-waebzB-o/view?usp=sharing";
+    const pdfUrl = "/assets/Khoa_Minh_Pham_Resume.pdf";
     return (
       <div ref={containerRef} className="relative flex h-full min-h-0 flex-1 bg-vscode-bg">
-        <PDFPreview googleDriveUrl={googleDriveUrl} />
+        <PDFPreview pdfUrl={pdfUrl} />
       </div>
     );
   }

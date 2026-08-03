@@ -64,7 +64,7 @@ export default function ActivityBar({
         href="https://github.com/minhpham1810"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open Minh Pham's GitHub"
+        aria-label="Open Khoa Minh Pham's GitHub"
         title="GitHub"
         className="group flex h-10 w-10 items-center justify-center text-vscode-textMuted transition-colors duration-200 hover:bg-vscode-highlight hover:text-vscode-text sm:h-11 sm:w-11"
       >

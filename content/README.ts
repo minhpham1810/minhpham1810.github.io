@@ -1,13 +1,13 @@
 const content = `# Backend-minded. Product-aware.
 ### Full-stack engineer · Bucknell University · May 2027
 
-I'm **Minh Pham**, a software engineer focused on APIs, data flow, and products that keep working beyond the demo.
+I'm **Khoa Minh Pham**, a software engineer focused on APIs, data flow, and products that keep working beyond the demo. I currently ship client web experiences and contribute to an Electron desktop product at JPL Integrated Communications.
 
 ## Start with evidence
 
 - [OIRA course catalog assistant](oira-chatbot.md) — citation-based RAG with FastAPI, persistent sessions, authentication, and feedback instrumentation.
 - [KALMUS Web](kalmus-web.md) — browser-based film analysis backed by chunked uploads, SLURM jobs, and shared HPC storage.
-- [SpotOn](SpotOn.md) — a music discovery product connecting Spotify data, Gemini-generated context, and a Node.js backend.
+- [SpotOn](SpotOn.md) — an AI music research platform combining Spotify data, sourced reports, agentic web research, and a Node.js backend.
 
 ## At a glance
 

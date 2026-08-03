@@ -1,25 +1,25 @@
 const content = `# FeelBit
 
-### A desktop mood journal built around quick logging and private reflection.
+### A containerized full-stack mood platform for private reflection and trend tracking.
 
 ## Product
 
-FeelBit lets a user record a daily mood, associate it with common triggers, and add a private journal entry. The history view brings those records together so patterns can be reviewed over time.
+FeelBit lets a user record a daily mood, associate it with common triggers, and add a private journal entry. Mood analytics surface patterns over time, while cached Gemini-powered wellness suggestions provide optional support for reflection.
 
 ## What I built
 
-The JavaFX interface handles the logging and history workflows. Java services persist entries in MongoDB, while a Gemini integration supports generated reflection prompts.
+I rebuilt the original JavaFX project as a React client and Spring Boot API backed by PostgreSQL and Flyway migrations. Docker packages the system consistently across environments.
 
 ## Engineering focus
 
-- Model mood, trigger, and journal data as one daily record
-- Keep persistence separate from JavaFX view logic
-- Build and package the application with Gradle
-- Treat generated prompts as optional support for reflection
+- Model mood, trigger, journal, and analytics data behind a Spring Boot service boundary
+- Use one-hour JWT access tokens and rotating seven-day refresh tokens stored as SHA-256 hashes
+- Protect credentials with BCrypt and automatically restore authenticated sessions
+- Cache AI-powered wellness suggestions to reduce repeated model work
 
 ## Stack
 
-Java, JavaFX, MongoDB, Gradle, and Google Gemini API.
+Java, Spring Boot, React, PostgreSQL, Flyway, Docker, JWT, BCrypt, and Google Gemini API.
 
 ## Repository
 

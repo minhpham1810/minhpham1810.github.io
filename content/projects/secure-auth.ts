@@ -8,21 +8,22 @@ This systems project explores what an authentication flow requires below the abs
 
 ## System
 
-The server stores salted password hashes. During authentication it issues a dynamic nonce, allowing the client to prove knowledge of a credential without sending the stored value directly. After authentication, AES-256-CBC protects session traffic.
+The server stores SHA-256 password hashes and uses RSA key generation plus a challenge-response flow to resist replay attacks. After authentication, AES-256-CBC protects session traffic with keys derived through HKDF.
 
 USER and ADMIN roles enforce command-level authorization. Cryptography, database access, and protocol definitions live in separate C modules so each boundary can be reasoned about independently.
 
 ## Engineering focus
 
 - Nonce-based challenge-response flow to resist replay
-- Salted SHA-256 password hashing
-- AES-256-CBC session encryption
+- SHA-256 password hashing and RSA key generation
+- Replay-attack protection
+- AES-256-CBC sessions with HKDF-derived keys
 - Role-based access control
 - Explicit protocol and module boundaries
 
 ## Stack
 
-C, OpenSSL, SHA-256, AES-256-CBC, and Make.
+C, OpenSSL, SHA-256, RSA, AES-256-CBC, HKDF, and Makefile.
 
 ## Repository
 
