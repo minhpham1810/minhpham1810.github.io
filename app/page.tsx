@@ -82,7 +82,7 @@ export default function Home() {
               Available for 2027 new-grad roles
             </p>
             <p className="mt-8 font-display text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
-              Khoa Minh Pham
+              Hi, I&apos;m Minh<span className="text-accent">.</span>
             </p>
             <h1 className="mt-3 max-w-[15ch] text-balance font-display text-[clamp(2.6rem,5.6vw,4.75rem)] font-medium leading-[1] tracking-[-0.04em]">
               Software engineer for backend, data, and AI systems.
@@ -98,7 +98,7 @@ export default function Home() {
                 href={`mailto:${links.email}`}
                 className="rounded-full bg-ink px-7 py-3.5 text-paper shadow-[0_10px_30px_rgba(15,23,42,0.25)] transition duration-200 hover:-translate-y-0.5 hover:bg-accent"
               >
-                Email me
+                Email Minh
               </a>
               <a href={links.resume} className={pill}>
                 Résumé (PDF)
