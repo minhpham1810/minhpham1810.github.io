@@ -138,9 +138,8 @@ export default function Home() {
               height={724}
               className="aspect-[4/5] w-full rounded-2xl object-cover"
             />
-            <figcaption className="flex items-center justify-between gap-4 px-3 pb-1 pt-4 text-sm">
-              <span className="font-medium">Bucknell University, 2027</span>
-              <span className="text-ink/75">Lewisburg, PA</span>
+            <figcaption className="px-3 pb-1 pt-4 text-sm font-medium">
+              call me minh!
             </figcaption>
             </figure>
           </div>
