@@ -1,6 +1,6 @@
 const content = `# FeelBit
 
-### A containerized full-stack mood platform for private reflection and trend tracking.
+### Mood tracking and reflection, built as a JavaFX desktop app and rewritten for the web.
 
 ## Product
 
@@ -8,7 +8,7 @@ FeelBit lets a user record a daily mood, associate it with common triggers, and 
 
 ## What I built
 
-I rebuilt the original JavaFX project as a React client and Spring Boot API backed by PostgreSQL and Flyway migrations. Docker packages the system consistently across environments.
+FeelBit was developed with a four-person Scrum team as a desktop application using JavaFX, MongoDB, and the Gemini API. I then rebuilt it for the web as a React client and Spring Boot API backed by PostgreSQL and Flyway migrations, with a Docker Compose setup that runs the system consistently across environments.
 
 ## Engineering focus
 
@@ -19,11 +19,12 @@ I rebuilt the original JavaFX project as a React client and Spring Boot API back
 
 ## Stack
 
-Java, Spring Boot, React, PostgreSQL, Flyway, Docker, JWT, BCrypt, and Google Gemini API.
+Java, Spring Boot, React, PostgreSQL, Flyway, Docker Compose, JWT, BCrypt, and Google Gemini API. The original desktop version uses JavaFX and MongoDB.
 
 ## Repository
 
-[View FeelBit on GitHub](https://github.com/minhpham1810/FeelBit)
+- [View FeelBit on GitHub](https://github.com/minhpham1810/feelbit)
+- [View the web rewrite branch](https://github.com/minhpham1810/feelbit/tree/spring-react)
 `;
 
 export default content;

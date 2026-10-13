@@ -1,104 +1,21 @@
-# VS Code Portfolio Website
+# minhpham1810.github.io
 
-A personal portfolio website that mimics the Visual Studio Code interface, built with Next.js and TypeScript.
+Personal portfolio of Khoa Minh Pham, built with Next.js 14, TypeScript, and Tailwind CSS and deployed to GitHub Pages as a static export.
 
-## 🚀 Features
-
-- **VS Code Theme**: Authentic VS Code interface with dark theme
-- **Dynamic File Management**:
-  - Open/close files by clicking in the explorer
-  - Multiple tabs support
-  - Close tabs with X button, middle-click, or Ctrl+W
-  - Tab navigation with keyboard shortcuts (Ctrl+Tab)
-- **Responsive Design**: Works on desktop and mobile devices
-- **Interactive Components**:
-  - Activity bar with multiple sections
-  - File explorer sidebar with collapsible folders
-  - Tabbed editor interface
-  - Status bar
-  - Title bar with window controls
-- **File Type Icons**: Different icons for markdown and other file types
-- **Keyboard Shortcuts**: VS Code-like shortcuts for productivity
-- **Easy to Customize**: Edit content files to personalize your portfolio
-
-## 🛠️ Tech Stack
-
-- **Next.js 14** - React framework with App Router
-- **TypeScript** - Type-safe code
-- **Tailwind CSS** - Utility-first CSS framework
-- **React Icons** - VS Code icons
-
-## 📦 Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/minhpham1810/minhpham1810.github.io.git
-cd minhpham1810.github.io
-```
-
-2. Install dependencies:
+## Development
 
 ```bash
 npm install
+npm run dev     # http://localhost:3000
+npm run lint
+npm run build   # static site in ./out
 ```
 
-3. Run the development server:
+## Editing content
 
-```bash
-npm run dev
-```
+- **Home page sections** (open-source pull requests, experience, toolkit, links): `lib/site.ts`
+- **Case studies**: one markdown string per file in `content/projects/`, registered in `lib/projects.ts`
+- **Colors and fonts**: `tailwind.config.ts` and `app/layout.tsx`
+- **Résumé, images, and videos**: `public/assets/`
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-## 🎨 Customization
-
-### Update Content
-
-Edit the content in `components/FileContent.tsx` to customize:
-
-- **README.md**: Main introduction
-- **about.md**: Your background and interests
-- **skills.md**: Your technical skills
-- **contact.md**: Contact information
-- **projects/\*.md**: Individual project descriptions
-
-### Modify File Structure
-
-Update the file tree in `components/Sidebar.tsx` to add or remove files and folders.
-
-### Change Theme Colors
-
-Customize colors in `tailwind.config.ts` under the `vscode` theme section.
-
-## 📝 Building for Production
-
-Build the static site:
-
-```bash
-npm run build
-```
-
-The output will be in the `out` directory, ready for deployment to GitHub Pages or any static hosting service.
-
-## 🌐 Deployment to GitHub Pages
-
-This project is configured for GitHub Pages deployment:
-
-1. Push your changes to the main branch
-2. GitHub Actions will automatically build and deploy (if configured)
-3. Your site will be live at `https://minhpham1810.github.io`
-
-Alternatively, deploy the `out` folder manually after running `npm run build`.
-
-## 📄 License
-
-MIT License - feel free to use this template for your own portfolio!
-
-## 🤝 Contributing
-
-Feel free to open issues or submit pull requests if you have suggestions for improvements!
-
----
-
-Built with ❤️ using Next.js and TypeScript
+Pushing to `main` deploys the site to <https://minhpham1810.github.io>.

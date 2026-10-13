@@ -8,7 +8,7 @@ KALMUS is a Python toolkit for quantitative film-color analysis. Its compute-hea
 
 ## My role
 
-I built the Next.js frontend and the product workflow around upload, configuration, job submission, status, results, and failure states.
+Built with a three-person team under a faculty mentor. My work includes the web interface and the product workflow around upload, configuration, job submission, status, results, and failure states, plus interactive visualizations, synchronized side-by-side comparisons, and barcode downloads for screens or high-resolution printing.
 
 ## System
 
@@ -16,10 +16,11 @@ The browser uploads large video files in chunks. Next.js API routes assemble the
 
 ## Engineering decisions
 
-- Upload videos in four concurrent requests with 5–25 MB chunks, cutting large-file upload time by 30–50% while allowing individual request recovery.
+- Upload videos in four concurrent requests with 5–25 MB chunks, cutting batch upload time by an estimated 30% while allowing individual request recovery.
 - Model the long-running workflow explicitly as pending, running, completed, and failed states.
 - Store each job's inputs and outputs together on the shared filesystem instead of adding a database that the workflow did not require.
 - Keep institutional authentication compatible with the university's Shibboleth and CAS headers.
+- Support searchable film-edition metadata, with duplicate checks that distinguish different editions of the same film.
 
 ## Demo
 

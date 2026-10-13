@@ -10,7 +10,7 @@ Course and program information lives across long catalog documents. Students and
 
 ## My role
 
-I developed the full-stack application: a Next.js interface, FastAPI services, authentication, persistent sessions, retrieval, and feedback instrumentation.
+Built with a three-person team for Bucknell's Office of Institutional Research and Analytics, supervised by a full-time staff member. I contributed to document retrieval, academic planning, conversation memory, and the chat interface, across a Next.js client and FastAPI services.
 
 ## System
 
@@ -37,6 +37,6 @@ Python, FastAPI, LangChain, ChromaDB, OpenAI API, SQLAlchemy, SQLite, Next.js, R
 
 ## Repository
 
-[View the OIRA Chatbot source](https://github.com/OIRA-Chatbot-Project/OIRA-Chatbot)`;
+[View the OIRA Chatbot source](https://github.com/Bucknell-OIRA/OIRA-Chatbot)`;
 
 export default content;

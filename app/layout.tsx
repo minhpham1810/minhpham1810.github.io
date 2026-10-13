@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Manrope, Newsreader } from "next/font/google";
 import "./globals.css";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
+import PointerEffects from "@/components/PointerEffects";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -23,26 +26,28 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://minhpham1810.github.io"),
   title: {
-    default: "Khoa Minh Pham — Full-Stack & Backend Engineer",
+    default: "Khoa Minh Pham — Software Engineer",
     template: "%s — Khoa Minh Pham",
   },
   description:
-    "Khoa Minh Pham is a full-stack and backend-focused software engineer building reliable APIs, data systems, interactive experiences, and useful web products.",
+    "Khoa Minh Pham builds full-stack applications, AI tools, and software for research, and contributes to open-source projects. Available for 2027 new-grad software engineering roles.",
   keywords: [
     "Khoa Minh Pham",
     "Minh Pham",
-    "full-stack engineer",
+    "open source",
     "backend engineer",
     "software engineer",
     "Next.js",
     "FastAPI",
   ],
   authors: [{ name: "Khoa Minh Pham" }],
+  twitter: { card: "summary_large_image" },
   openGraph: {
     type: "website",
     url: "/",
     siteName: "Khoa Minh Pham — Portfolio",
-    title: "Khoa Minh Pham — Full-Stack & Backend Engineer",
+    images: [{ url: "/og.png", width: 1200, height: 630 }],
+    title: "Khoa Minh Pham — Software Engineer",
     description:
       "Selected full-stack and backend work, experience, and engineering case studies.",
   },
@@ -62,7 +67,10 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
+        <SiteHeader />
         {children}
+        <SiteFooter />
+        <PointerEffects />
       </body>
     </html>
   );
