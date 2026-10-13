@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Manrope, Newsreader } from "next/font/google";
+import { Caveat, JetBrains_Mono, Manrope, Newsreader } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -20,6 +20,13 @@ const newsreader = Newsreader({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
+});
+
+// Handwriting, used only for the note beside the hero portrait
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-hand",
   display: "swap",
 });
 
@@ -61,8 +68,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${newsreader.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+      className={`${manrope.variable} ${newsreader.variable} ${jetbrainsMono.variable} ${caveat.variable}`}
     >
+      <head>
+        {/* Runs before paint so the saved or system theme never flashes. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("theme")}catch(e){}document.documentElement.dataset.theme=t||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")`,
+          }}
+        />
+      </head>
       <body className="antialiased">
         <a href="#main-content" className="skip-link">
           Skip to content

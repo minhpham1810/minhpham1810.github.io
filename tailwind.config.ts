@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["selector", '[data-theme="dark"]'],
   content: [
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -13,12 +14,11 @@ const config: Config = {
         mono: ["var(--font-mono)", "Courier New", "monospace"],
       },
       colors: {
-        paper: "#FAFAFA",
-        wash: "#F4F4F5",
-        ink: "#09090B",
-        muted: "#475569",
-        line: "#E4E4E7",
-        accent: "#2563EB",
+        // Channels are defined per theme in app/globals.css
+        paper: "rgb(var(--paper) / <alpha-value>)",
+        ink: "rgb(var(--ink) / <alpha-value>)",
+        muted: "rgb(var(--muted) / <alpha-value>)",
+        accent: "rgb(var(--accent) / <alpha-value>)",
       },
     },
   },

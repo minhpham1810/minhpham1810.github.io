@@ -3,7 +3,8 @@
 import { useEffect } from "react";
 
 // One document-level listener feeds CSS variables; all visuals live in globals.css.
-//   --px / --py  pointer position in the viewport, 0..1 (background drift + cursor glow)
+//   --px / --py  pointer position in the viewport, 0..1 (background drift)
+//   --cx / --cy  pointer position in the viewport, in px (cursor glow)
 //   --mx / --my  pointer position inside the hovered .glass panel, in px (spotlight)
 //   --tx / --ty  pointer offset inside a [data-tilt] element, -0.5..0.5 (tilt)
 export default function PointerEffects() {
@@ -22,6 +23,9 @@ export default function PointerEffects() {
     const onMove = (event: PointerEvent) => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
+        root.dataset.pointer = "";
+        root.style.setProperty("--cx", `${event.clientX}px`);
+        root.style.setProperty("--cy", `${event.clientY}px`);
         root.style.setProperty("--px", String(event.clientX / window.innerWidth));
         root.style.setProperty("--py", String(event.clientY / window.innerHeight));
 
@@ -55,5 +59,12 @@ export default function PointerEffects() {
     };
   }, []);
 
-  return null;
+  return (
+    <div aria-hidden="true" className="cursor-glow">
+      <span />
+      <span />
+      <span />
+      <span />
+    </div>
+  );
 }

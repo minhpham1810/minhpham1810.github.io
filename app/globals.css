@@ -2,14 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: light;
+  --paper: 250 250 250;
+  --ink: 9 9 11;
+  --muted: 71 85 105;
+  --accent: 37 99 235;
+  --page: #eef1f8;
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-bg-hover: rgba(255, 255, 255, 0.7);
+  --glass-solid: rgba(255, 255, 255, 0.94);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-highlight: rgba(255, 255, 255, 0.85);
+  --glass-shadow: rgba(30, 41, 59, 0.09);
+  --spot: rgba(255, 255, 255, 0.85);
+  --slab: rgba(9, 9, 11, 0.85);
+  --field-strength: 1;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: 9 11 19;
+  --ink: 244 244 246;
+  --muted: 148 163 184;
+  --accent: 96 165 250;
+  --page: #080a12;
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-hover: rgba(255, 255, 255, 0.1);
+  --glass-solid: rgba(22, 25, 38, 0.96);
+  --glass-border: rgba(255, 255, 255, 0.13);
+  --glass-highlight: rgba(255, 255, 255, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.45);
+  --spot: rgba(255, 255, 255, 0.1);
+  --slab: rgba(255, 255, 255, 0.06);
+  --field-strength: 0.75;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 8rem;
 }
 
 body {
-  background: #eef1f8;
-  color: #09090b;
+  background: var(--page);
+  color: rgb(var(--ink));
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
@@ -19,6 +55,7 @@ body::before {
   z-index: -1;
   inset: 0;
   content: "";
+  opacity: var(--field-strength);
   background:
     radial-gradient(42rem 34rem at 8% 4%, rgba(37, 99, 235, 0.34), transparent 70%),
     radial-gradient(38rem 32rem at 96% 22%, rgba(139, 92, 246, 0.3), transparent 70%),
@@ -34,27 +71,77 @@ body::before {
   transition: transform 500ms ease-out;
 }
 
-/* A soft light that follows the cursor behind the glass. Off-screen until the pointer moves. */
-body::after {
+/* Cursor glow: a tight core, two coloured lobes that trail behind it at different
+   speeds, and a slowly turning ring. It sits behind the glass, so panels blur it.
+   --cx/--cy (px) come from PointerEffects, which also sets data-pointer on first move. */
+.cursor-glow {
   position: fixed;
   z-index: -1;
   inset: 0;
-  content: "";
+  overflow: hidden;
   pointer-events: none;
-  background: radial-gradient(
-    24rem circle at calc(var(--px, -1) * 100%) calc(var(--py, -1) * 100%),
-    rgba(37, 99, 235, 0.2),
-    transparent 70%
-  );
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+:root[data-pointer] .cursor-glow {
+  opacity: 1;
+}
+
+.cursor-glow span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 9999px;
+  transform: translate3d(calc(var(--cx, 0px) - 50%), calc(var(--cy, 0px) - 50%), 0);
+  will-change: transform;
+}
+
+.cursor-glow span:nth-child(1) {
+  width: 4.5rem;
+  height: 4.5rem;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.6), transparent 70%);
+  transition: transform 80ms linear;
+}
+
+.cursor-glow span:nth-child(2) {
+  width: 7.5rem;
+  height: 7.5rem;
+  background: radial-gradient(circle at 35% 35%, rgba(139, 92, 246, 0.42), transparent 70%);
+  transition: transform 340ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.cursor-glow span:nth-child(3) {
+  width: 10rem;
+  height: 10rem;
+  background: radial-gradient(circle at 65% 60%, rgba(6, 182, 212, 0.34), transparent 70%);
+  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.cursor-glow span:nth-child(4) {
+  width: 6rem;
+  height: 6rem;
+  opacity: 0.55;
+  background: conic-gradient(from 0deg, #2563eb, #8b5cf6, #f472b6, #06b6d4, #2563eb);
+  -webkit-mask: radial-gradient(closest-side, transparent 80%, #000 84%, #000 94%, transparent 100%);
+  mask: radial-gradient(closest-side, transparent 80%, #000 84%, #000 94%, transparent 100%);
+  transition: transform 180ms ease-out;
+  animation: glow-spin 7s linear infinite;
+}
+
+@keyframes glow-spin {
+  to {
+    rotate: 360deg;
+  }
 }
 
 ::selection {
-  background: #2563eb;
-  color: #fff;
+  background: rgb(var(--accent));
+  color: rgb(var(--paper));
 }
 
 :focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid rgb(var(--accent));
   outline-offset: 3px;
 }
 
@@ -64,8 +151,8 @@ body::after {
   top: 0.75rem;
   left: 0.75rem;
   padding: 0.65rem 0.9rem;
-  color: #fff;
-  background: #09090b;
+  color: rgb(var(--paper));
+  background: rgb(var(--ink));
   font-weight: 700;
   transform: translateY(-180%);
   transition: transform 180ms ease;
@@ -81,30 +168,33 @@ body::after {
   }
 
   .glass {
-    @apply rounded-3xl border border-white/70 bg-white/50;
+    @apply rounded-3xl border;
+    border-color: var(--glass-border);
+    background-color: var(--glass-bg);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.85),
-      0 10px 36px rgba(30, 41, 59, 0.09);
+      inset 0 1px 0 var(--glass-highlight),
+      0 10px 36px var(--glass-shadow);
     -webkit-backdrop-filter: blur(16px) saturate(1.4);
     backdrop-filter: blur(16px) saturate(1.4);
   }
 
   a.glass {
-    @apply transition duration-200 hover:-translate-y-1 hover:bg-white/70;
+    @apply transition duration-200 hover:-translate-y-1;
   }
 
   a.glass:hover {
-    border-color: rgba(37, 99, 235, 0.35);
+    background-color: var(--glass-bg-hover);
+    border-color: rgb(var(--accent) / 0.4);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.85),
-      0 18px 48px rgba(37, 99, 235, 0.16);
+      inset 0 1px 0 var(--glass-highlight),
+      0 18px 48px rgb(var(--accent) / 0.18);
   }
 
   /* Spotlight under the cursor; --mx/--my come from PointerEffects. */
   .glass:hover {
     background-image:
-      radial-gradient(14rem circle at var(--mx, -99rem) var(--my, -99rem), rgba(255, 255, 255, 0.85), transparent 65%),
-      radial-gradient(26rem circle at var(--mx, -99rem) var(--my, -99rem), rgba(37, 99, 235, 0.1), transparent 65%);
+      radial-gradient(14rem circle at var(--mx, -99rem) var(--my, -99rem), var(--spot), transparent 65%),
+      radial-gradient(26rem circle at var(--mx, -99rem) var(--my, -99rem), rgb(var(--accent) / 0.1), transparent 65%);
   }
 
   [data-tilt] {
@@ -130,13 +220,13 @@ body::after {
 /* Without blur (or when the visitor asks for less transparency) the panels go near-solid so text stays readable. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .glass {
-    background: rgba(255, 255, 255, 0.92);
+    background: var(--glass-solid);
   }
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .glass {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--glass-solid);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }

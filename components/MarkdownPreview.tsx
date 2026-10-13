@@ -21,7 +21,7 @@ export default function MarkdownPreview({ content }: { content: string }) {
           elements.push(
             <div
               key={i}
-              className="relative my-9 overflow-x-auto border-l-2 border-accent bg-white/60"
+              className="relative my-9 overflow-x-auto border-l-2 border-accent bg-[color:var(--glass-bg)]"
             >
               {codeBlockLanguage && (
                 <span className="absolute top-2 right-3 text-xs text-muted font-mono uppercase tracking-wider">
@@ -99,7 +99,7 @@ export default function MarkdownPreview({ content }: { content: string }) {
             <figure key={i} className="my-10">
               <video
                 controls
-                className="h-auto w-full rounded-2xl border border-ink/10 bg-ink"
+                className="h-auto w-full rounded-2xl border border-ink/10 bg-black"
                 src={videoSrc}
               >
                 Your browser does not support the video tag.
@@ -232,7 +232,7 @@ export default function MarkdownPreview({ content }: { content: string }) {
       parts.push(
         <code
           key={`code-${key++}`}
-          className="border border-ink/10 bg-white/60 px-1.5 py-0.5 font-mono text-[13px] text-ink"
+          className="border border-ink/10 bg-[color:var(--glass-bg)] px-1.5 py-0.5 font-mono text-[13px] text-ink"
         >
           {content}
         </code>

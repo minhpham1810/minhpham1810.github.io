@@ -9,11 +9,11 @@ function Thumbnail({ slug, title, tile }: { slug: string; title: string; tile?: 
   // The wrapper clips the zoom that plays when the surrounding card is hovered.
   const zoom = "h-full w-full transition-transform duration-500 ease-out group-hover:scale-105";
   return (
-    <span className="block aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/70">
+    <span className="block aspect-[16/10] w-full overflow-hidden rounded-2xl border border-[color:var(--glass-border)]">
       {tile ? (
         <span
           aria-hidden="true"
-          className={`${zoom} flex items-center justify-center bg-ink px-4 text-center font-mono text-sm text-paper sm:text-base`}
+          className={`${zoom} flex items-center justify-center bg-[#0b0d16] px-4 text-center font-mono text-sm text-white sm:text-base`}
         >
           {tile}
         </span>
@@ -112,20 +112,38 @@ export default function Home() {
             </div>
           </div>
 
-          <figure data-tilt className="glass mx-auto w-full max-w-sm p-3 lg:max-w-none">
+          <div className="relative mx-auto mt-6 w-full max-w-sm lg:max-w-none">
+            <p className="pointer-events-none absolute -top-14 left-3 z-10 flex -rotate-6 items-start gap-1 font-[family-name:var(--font-hand)] text-[1.7rem] leading-none text-ink/85">
+              me in shanghai, 2025
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 60 56"
+                className="mt-3 h-14 w-14 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M4 9c18-7 40-2 44 16 2 8 0 16-3 24" />
+                <path d="M35 39c4 3 7 7 10 11 2-6 5-11 10-15" />
+              </svg>
+            </p>
+            <figure data-tilt className="glass p-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/IMG_7714.JPEG"
-              alt="Khoa Minh Pham outdoors"
-              width={1537}
-              height={2305}
-              className="aspect-[4/5] w-full rounded-2xl object-cover object-bottom"
+              src="/assets/portrait.jpg"
+              alt="Khoa Minh Pham smiling by a river at night, with a lit city skyline behind"
+              width={579}
+              height={724}
+              className="aspect-[4/5] w-full rounded-2xl object-cover"
             />
             <figcaption className="flex items-center justify-between gap-4 px-3 pb-1 pt-4 text-sm">
               <span className="font-medium">Bucknell University, 2027</span>
               <span className="text-ink/75">Lewisburg, PA</span>
             </figcaption>
-          </figure>
+            </figure>
+          </div>
         </div>
 
         <ul className="mt-14 grid gap-5 md:grid-cols-3">
@@ -168,7 +186,7 @@ export default function Home() {
                 </span>
                 <span className="mt-auto flex items-center justify-between gap-4 px-3 pb-3 pt-7">
                   {project.note ? (
-                    <span className="rounded-full bg-accent px-3 py-1.5 font-mono text-xs uppercase tracking-[0.08em] text-white">
+                    <span className="rounded-full bg-accent px-3 py-1.5 font-mono text-xs uppercase tracking-[0.08em] text-paper">
                       {project.note}
                     </span>
                   ) : (

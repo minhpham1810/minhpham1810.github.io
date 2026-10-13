@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { links } from "@/lib/site";
+import ThemeToggle from "./ThemeToggle";
 
 const nav = [
   { href: "/#work", label: "Work" },
@@ -15,7 +16,7 @@ export default function SiteHeader() {
         <Link href="/" className="font-display text-xl font-medium tracking-[-0.02em]">
           Khoa Minh Pham
         </Link>
-        <nav aria-label="Primary" className="flex items-center gap-6 text-sm">
+        <nav aria-label="Primary" className="flex items-center gap-3 text-sm md:gap-5">
           {nav.map(({ href, label }) => (
             <Link
               key={href}
@@ -25,6 +26,7 @@ export default function SiteHeader() {
               {label}
             </Link>
           ))}
+          <ThemeToggle />
           <a
             href={links.resume}
             className="rounded-full bg-ink px-5 py-2.5 font-medium text-paper transition-colors hover:bg-accent"
