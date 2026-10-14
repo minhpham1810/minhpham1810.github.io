@@ -111,6 +111,15 @@ export const experience = [
     ],
   },
   {
+    role: "Data Science Student Fellow",
+    org: "Dominguez Center for Data Science, Bucknell University",
+    place: "Lewisburg, PA",
+    dates: "Aug 2026 – Present",
+    points: [
+      "Working on A Kingdom of Names, a data mining project exploring the Holinshed Chronicles.",
+    ],
+  },
+  {
     role: "Student Software Developer, KALMUS Research",
     org: "Bucknell University",
     place: "Lewisburg, PA",
@@ -126,6 +135,7 @@ export const experience = [
     place: "Harrisburg, PA",
     dates: "Jun 2026 – Aug 2026",
     points: [
+      "Developed a networked Electron desktop application for macOS and Windows with synchronized video playback across devices, and added CMS and blog features to WordPress/PHP client sites.",
       "Owned the Node.js/Express backend on a three-person team, building real-time WebSocket messaging to synchronize controllers and projectors for an exhibit now installed on site.",
       "Built a WordPress-to-local content pipeline with caching, scheduled refreshes, and staged updates with rollback, enabling the exhibit to run fully offline from cached content.",
     ],
@@ -150,11 +160,39 @@ export const experience = [
       "Implemented tenant-scoped data authorization with PostgreSQL queries and AES-256-GCM field encryption; mapped 5 security domains to 0–100 readiness scores and 4 risk tiers.",
     ],
   },
+  {
+    role: "Full Stack Developer (Contract)",
+    org: "Daylily AI",
+    place: "Remote",
+    dates: "Aug 2025 – Nov 2025",
+    points: [
+      "Built Shopify applications using Liquid, TypeScript, and Shopify APIs, working across implementation, integration, deployment, and optimization.",
+    ],
+  },
+  {
+    role: "Computer Science Teaching Assistant",
+    org: "Bucknell University",
+    place: "Lewisburg, PA",
+    dates: "Jan 2024 – Dec 2025",
+    points: [
+      "Helped students debug Python code, understand programming concepts, and improve their approach to projects in courses covering data structures, algorithms, and software design.",
+    ],
+  },
+  {
+    role: "Undergraduate Student Researcher",
+    org: "Bucknell University",
+    place: "Lewisburg, PA",
+    dates: "Oct 2024 – May 2025",
+    points: [
+      "Developed an sEMG controller prototype with other students, exploring optimal sensor count and placement for hand gesture recognition in XR.",
+      "Built Python data workflows for cleaning, organizing, and analyzing faculty research datasets.",
+    ],
+  },
 ];
 
 export const toolkit = [
   { label: "Languages", items: "TypeScript, JavaScript, Python, Java, Go, C, C++, SQL" },
-  { label: "Applications", items: "React, Next.js, Expo / React Native, FastAPI, Node.js, Express, Spring Boot" },
-  { label: "AI and data", items: "LangChain, RAG, tool-calling agents, ChromaDB, PostgreSQL, MongoDB, Redis, SQLite, Spark" },
+  { label: "Applications", items: "React, Next.js, Expo / React Native, Electron, FastAPI, Node.js, Express, Spring Boot" },
+  { label: "AI and data", items: "LangChain, RAG, tool-calling agents, PyTorch, ChromaDB, PostgreSQL, MongoDB, Redis, SQLite, Spark" },
   { label: "Infrastructure", items: "Git, Docker, GitHub Actions, Linux, AWS, HPC / SLURM, WebSockets" },
 ];

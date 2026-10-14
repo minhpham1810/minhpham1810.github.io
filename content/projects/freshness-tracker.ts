@@ -2,13 +2,17 @@ const content = `# Freshness Tracker
 
 ### A hardware-to-mobile food-waste prototype that estimates remaining freshness from measured temperature exposure.
 
-> **SASEhack 2026:** Best First Hack award and Pitch Competition finalist recognition.
+> **SASEhack 2026:** Best First Hack award, out of 56 projects and 250+ hackers, and Pitch Competition finalist recognition.
 
 ## Context
 
 A printed date assumes food stayed cold the whole time. It does not know about the warm car ride home or a fridge that runs warm, so households either discard food that was fine or keep it too long. Freshness Tracker answers "how many days does this item have left?" from what actually happened to it.
 
 Built with a four-person team.
+
+## My role
+
+I worked on app development and system integration: connecting hardware telemetry to the backend, label scanning, and the local AI assistant.
 
 ## System
 
