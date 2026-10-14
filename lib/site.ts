@@ -2,7 +2,7 @@ export const links = {
   email: "minhpham181004@gmail.com",
   github: "https://github.com/minhpham1810",
   linkedin: "https://www.linkedin.com/in/khoaminhpham18/",
-  resume: "/assets/Khoa_Minh_Pham_Resume.pdf",
+  resume: "https://drive.google.com/file/d/1aR_fpbziSthGFP3z1JPHv-GsRbCeaYDS/view?usp=sharing",
   allPrs: "https://github.com/pulls?q=is%3Apr+author%3Aminhpham1810",
 };
 
