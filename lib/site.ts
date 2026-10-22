@@ -7,14 +7,14 @@ export const links = {
 };
 
 type Contribution = {
-  status: "merged" | "open";
+  status: "merged" | "open" | "closed";
   project: string;
   summary: string;
   pr: string;
   url: string;
 };
 
-// PR statuses checked October 12, 2026
+// PR statuses checked October 22, 2026
 export const openSource: Contribution[] = [
   {
     status: "merged",
@@ -74,27 +74,43 @@ export const openSource: Contribution[] = [
   },
   {
     status: "open",
-    project: "ELIXIR Cloud FOCA",
-    summary:
-      "Improved MongoDB environment-variable normalization, access-control startup logs, resource loading, and related tests.",
-    pr: "#256",
-    url: "https://github.com/elixir-cloud-aai/foca/pull/256",
-  },
-  {
-    status: "open",
-    project: "ELIXIR Cloud FOCA",
-    summary:
-      "Added complete MONGO_URI configuration with precedence checks, access-control setup logs, and deprecation cleanup.",
-    pr: "#257",
-    url: "https://github.com/elixir-cloud-aai/foca/pull/257",
-  },
-  {
-    status: "open",
     project: "FOSSASIA PSLab Python",
     summary:
       "Added an in-memory connection handler and a mock mode for ScienceLab so development and initialization tests can run without physical hardware.",
     pr: "#274",
     url: "https://github.com/fossasia/pslab-python/pull/274",
+  },
+  {
+    status: "closed",
+    project: "ELIXIR Cloud FOCA",
+    summary:
+      "Proposed normalizing MongoDB environment variables, adding access-control startup logs, modernizing resource loading, and extending tests. Closed without merging.",
+    pr: "#256",
+    url: "https://github.com/elixir-cloud-aai/foca/pull/256",
+  },
+  {
+    status: "closed",
+    project: "ELIXIR Cloud FOCA",
+    summary:
+      "Proposed complete MONGO_URI configuration with precedence checks, access-control setup logs, deprecation cleanup, documentation, and tests. Closed without merging.",
+    pr: "#257",
+    url: "https://github.com/elixir-cloud-aai/foca/pull/257",
+  },
+  {
+    status: "closed",
+    project: "Apache Sedona",
+    summary:
+      "Proposed filtering a known degenerate-collision stack trace to prevent straight-skeleton operations from flooding executor logs. Closed without merging.",
+    pr: "#3280",
+    url: "https://github.com/apache/sedona/pull/3280",
+  },
+  {
+    status: "closed",
+    project: "Harbor Satellite",
+    summary:
+      "Proposed centralizing password policy enforcement in the hashing function, with typed errors and updated handlers and tests. Closed without merging.",
+    pr: "#331",
+    url: "https://github.com/container-registry/harbor-satellite/pull/331",
   },
 ];
 

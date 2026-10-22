@@ -56,7 +56,7 @@ export default function Home() {
       href: "/#open-source",
       figure: `${merged} merged`,
       label: "Open-source pull requests",
-      detail: "Apache Sedona, the GA4GH Tool Registry Service, and Harbor Satellite, with four more under review.",
+      detail: "Apache Sedona, the GA4GH Tool Registry Service, and Harbor Satellite, with two more under review.",
     },
     {
       href: "/work/kalmus-web/",
@@ -259,7 +259,7 @@ export default function Home() {
           ))}
         </ul>
         <p className="mt-5 text-sm text-ink/75">
-          Statuses checked October 12, 2026.{" "}
+          Statuses checked October 22, 2026.{" "}
           <a
             href={links.allPrs}
             className="text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:text-accent"
