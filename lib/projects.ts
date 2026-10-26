@@ -1,3 +1,4 @@
+import thuocTracker from "@/content/projects/thuoctracker";
 import freshnessTracker from "@/content/projects/freshness-tracker";
 import kalmusWeb from "@/content/projects/kalmus-web";
 import oiraChatbot from "@/content/projects/oira-chatbot";
@@ -21,6 +22,13 @@ type Entry = {
 
 // Order here is the order on the home page and the prev/next order on case studies.
 const entries: Entry[] = [
+  {
+    slug: "thuoctracker",
+    content: thuocTracker,
+    tags: ["Next.js", "FastAPI", "Raspberry Pi"],
+    note: "HackPSU Fall 2026",
+    tile: "Cabinet · Patient · Care team",
+  },
   {
     slug: "freshness-tracker",
     content: freshnessTracker,

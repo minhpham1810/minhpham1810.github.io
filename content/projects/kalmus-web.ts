@@ -8,19 +8,22 @@ KALMUS is a Python toolkit for quantitative film-color analysis. Its compute-hea
 
 ## My role
 
-Built with a three-person team under a faculty mentor. My work includes the web interface and the product workflow around upload, configuration, job submission, status, results, and failure states, plus interactive visualizations, synchronized side-by-side comparisons, and barcode downloads for screens or high-resolution printing.
+Built with a three-person team under a faculty mentor. My work includes the web interface and the product workflow around upload, configuration, job submission, status, results, and failure states, plus interactive visualizations, synchronized side-by-side comparisons, barcode downloads for screens or high-resolution printing, and watermarking for public exports.
 
 ## System
 
-The browser uploads large video files in chunks. Next.js API routes assemble the upload and generate a SLURM batch script. A compute node runs the Python analysis, then writes metadata, summaries, color barcodes, and visualization data to shared NFS storage. The frontend polls job state and renders the completed outputs with Plotly.js.
+The browser uploads large video files in chunks. Next.js API routes assemble the upload and generate a SLURM batch script. A compute node runs the Python analysis, then writes metadata, summaries, color barcodes, and visualization data to shared NFS storage. The frontend polls job state and renders the completed outputs with Plotly.js. A shared SQLite film catalog supports search, edition metadata, duplicate detection, and admin curation.
 
 ## Engineering decisions
 
 - Upload videos in four concurrent requests with 5–25 MB chunks, cutting batch upload time by an estimated 30% while allowing individual request recovery.
 - Model the long-running workflow explicitly as pending, running, completed, and failed states.
-- Store each job's inputs and outputs together on the shared filesystem instead of adding a database that the workflow did not require.
+- Store each job's inputs and outputs on the shared filesystem, with searchable film and edition metadata in a SQLite catalog.
 - Keep institutional authentication compatible with the university's Shibboleth and CAS headers.
 - Support searchable film-edition metadata, with duplicate checks that distinguish different editions of the same film.
+
+- Explore films on an interactive map by dominant hue, overall color cast, or whole-palette and lightness similarity.
+- Watermark public image exports while allowing clean downloads for administrators.
 
 ## Demo
 
@@ -28,7 +31,7 @@ The browser uploads large video files in chunks. Next.js API routes assemble the
 
 ## Stack
 
-Next.js, React, TypeScript, Tailwind CSS, Plotly.js, Node.js API routes, Python, KALMUS, SLURM, shared NFS storage, and the OMDb API.
+Next.js, React, TypeScript, Tailwind CSS, Plotly.js, Node.js API routes, Python, KALMUS, SLURM, shared NFS storage, SQLite, and the OMDb API.
 
 ## Links
 

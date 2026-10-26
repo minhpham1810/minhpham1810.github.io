@@ -259,7 +259,7 @@ export default function Home() {
           ))}
         </ul>
         <p className="mt-5 text-sm text-ink/75">
-          Statuses checked October 22, 2026.{" "}
+          Statuses checked October 26, 2026.{" "}
           <a
             href={links.allPrs}
             className="text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:text-accent"
