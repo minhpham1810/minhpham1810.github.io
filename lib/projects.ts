@@ -27,7 +27,6 @@ const entries: Entry[] = [
     content: thuocTracker,
     tags: ["Next.js", "FastAPI", "Raspberry Pi"],
     note: "HackPSU Fall 2026",
-    tile: "Cabinet · Patient · Care team",
   },
   {
     slug: "freshness-tracker",
