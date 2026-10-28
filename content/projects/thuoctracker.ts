@@ -27,8 +27,9 @@ Label scanning uses a local model through Ollama with a Gemini fallback. Voice q
 
 Next.js, React, TypeScript, Expo / React Native, FastAPI, PostgreSQL, Auth0, Raspberry Pi, ESP32, Ollama, Gemini, and ElevenLabs.
 
-## Repository
+## Links
 
-[View ThuocTracker on GitHub](https://github.com/minhpham1810/thuoctracker)`;
+- [View the Devpost submission](https://devpost.com/software/thuoctracker)
+- [View ThuocTracker on GitHub](https://github.com/minhpham1810/thuoctracker)`;
 
 export default content;
