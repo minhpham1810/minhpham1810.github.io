@@ -22,6 +22,8 @@ type Entry = {
 
 // Order here is the order on the home page and the prev/next order on case studies.
 const entries: Entry[] = [
+  { slug: "kalmus-web", content: kalmusWeb, tags: ["Next.js", "Python", "SLURM"] },
+  { slug: "oira-chatbot", content: oiraChatbot, tags: ["FastAPI", "LangChain", "ChromaDB"] },
   {
     slug: "thuoctracker",
     content: thuocTracker,
@@ -34,11 +36,9 @@ const entries: Entry[] = [
     tags: ["FastAPI", "Expo", "ESP32"],
     note: "Best First Hack · SASEhack 2026",
   },
-  { slug: "kalmus-web", content: kalmusWeb, tags: ["Next.js", "Python", "SLURM"] },
-  { slug: "oira-chatbot", content: oiraChatbot, tags: ["FastAPI", "LangChain", "ChromaDB"] },
   { slug: "spoton", content: spotOn, tags: ["React", "Node.js", "Groq"] },
-  { slug: "unissh", content: unissh, tags: ["Go", "SSH / SFTP"], tile: "$ unissh push" },
   { slug: "feelbit", content: feelBit, tags: ["Spring Boot", "React", "PostgreSQL"] },
+  { slug: "unissh", content: unissh, tags: ["Go", "SSH / SFTP"], tile: "$ unissh push" },
   { slug: "secure-auth", content: secureAuth, tags: ["C", "OpenSSL"], coursework: true, tile: "AES-256-CBC · HKDF · RSA" },
   { slug: "ecommerce-ml", content: ecommerceMl, tags: ["Python", "XGBoost"], coursework: true, tile: "ROC-AUC 0.831" },
   { slug: "architecture-of-sleep", content: architectureOfSleep, tags: ["R", "ggplot2"], coursework: true },
