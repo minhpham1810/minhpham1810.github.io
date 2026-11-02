@@ -27,6 +27,10 @@ Query classification, conversation summarization, and user-context extraction im
 - Persist session and feedback data separately from the vector store.
 - Include OCR as an optional path for extracting information from schedule images.
 
+## Proposed backend refactor
+
+In [open PR #3](https://github.com/Bucknell-OIRA/OIRA-Chatbot/pull/3), I reorganized the backend into typed FastAPI routes, services, repositories, and dependency injection. The proposal retains the existing chat, citation, streaming, session, feedback, and schedule interfaces. This work is under review and has not been merged.
+
 ## Demo
 
 ![video](oira_chatbot_demo.mp4)

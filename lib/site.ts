@@ -14,7 +14,7 @@ type Contribution = {
   url: string;
 };
 
-// PR statuses checked October 26, 2026
+// PR statuses checked November 2, 2026
 export const openSource: Contribution[] = [
   {
     status: "merged",
@@ -132,7 +132,7 @@ export const experience = [
     place: "Lewisburg, PA",
     dates: "Aug 2026 – Present",
     points: [
-      "Working on A Kingdom of Names, a data mining project exploring the Holinshed Chronicles.",
+      "Built a place-name normalization and counting notebook for A Kingdom of Names, filtering source notes and titles and grouping spelling variants to compare places across monarchs' reigns.",
     ],
   },
   {
@@ -210,5 +210,5 @@ export const toolkit = [
   { label: "Languages", items: "TypeScript, JavaScript, Python, Java, Go, C, C++, SQL" },
   { label: "Applications", items: "React, Next.js, Expo / React Native, Electron, FastAPI, Node.js, Express, Spring Boot" },
   { label: "AI and data", items: "LangChain, RAG, tool-calling agents, PyTorch, ChromaDB, PostgreSQL, MongoDB, Redis, SQLite, Spark" },
-  { label: "Infrastructure", items: "Git, Docker, GitHub Actions, Linux, AWS, HPC / SLURM, WebSockets" },
+  { label: "Infrastructure", items: "Git, Docker, Kubernetes, Terraform, Google Cloud Run, GitHub Actions, Linux, AWS, HPC / SLURM, WebSockets" },
 ];

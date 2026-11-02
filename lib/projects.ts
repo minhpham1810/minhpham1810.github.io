@@ -1,3 +1,4 @@
+import kingdomOfNames from "@/content/projects/kingdom-of-names";
 import thuocTracker from "@/content/projects/thuoctracker";
 import freshnessTracker from "@/content/projects/freshness-tracker";
 import kalmusWeb from "@/content/projects/kalmus-web";
@@ -36,7 +37,8 @@ const entries: Entry[] = [
     tags: ["FastAPI", "Expo", "ESP32"],
     note: "Best First Hack · SASEhack 2026",
   },
-  { slug: "spoton", content: spotOn, tags: ["React", "Node.js", "Groq"] },
+  { slug: "spoton", content: spotOn, tags: ["React", "Python", "Cloud Run"] },
+  { slug: "kingdom-of-names", content: kingdomOfNames, tags: ["Python", "TEI/XML", "pandas"], tile: "Holinshed · People · Places" },
   { slug: "feelbit", content: feelBit, tags: ["Spring Boot", "React", "PostgreSQL"] },
   { slug: "unissh", content: unissh, tags: ["Go", "SSH / SFTP"], tile: "$ unissh push" },
   { slug: "secure-auth", content: secureAuth, tags: ["C", "OpenSSL"], coursework: true, tile: "AES-256-CBC · HKDF · RSA" },
