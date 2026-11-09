@@ -14,6 +14,10 @@ Built with a three-person team under a faculty mentor. My work includes the web 
 
 The browser uploads large video files in chunks. Next.js API routes assemble the upload and generate a SLURM batch script. A compute node runs the Python analysis, then writes metadata, summaries, color barcodes, and visualization data to shared NFS storage. The frontend polls job state and renders the completed outputs with Plotly.js. A shared SQLite film catalog supports search, edition metadata, duplicate detection, and admin curation.
 
+## Film requests
+
+I added a request queue so visitors can propose a film without uploading a video. Requests save the edition, barcode settings, and sampling configuration; matching film, edition, and analysis requests are grouped with a subscriber count. Administrators review requests and open a prefilled upload form when accepting one. The queue tracks submitted jobs and emails subscribers when a request is accepted, declined, or completed.
+
 ## Engineering decisions
 
 - Upload videos in four concurrent requests with 5–25 MB chunks, cutting batch upload time by an estimated 30% while allowing individual request recovery.

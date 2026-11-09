@@ -1,3 +1,4 @@
+import umbra from "@/content/projects/umbra";
 import kingdomOfNames from "@/content/projects/kingdom-of-names";
 import thuocTracker from "@/content/projects/thuoctracker";
 import freshnessTracker from "@/content/projects/freshness-tracker";
@@ -25,6 +26,7 @@ type Entry = {
 const entries: Entry[] = [
   { slug: "kalmus-web", content: kalmusWeb, tags: ["Next.js", "Python", "SLURM"] },
   { slug: "oira-chatbot", content: oiraChatbot, tags: ["FastAPI", "LangChain", "ChromaDB"] },
+  { slug: "umbra", content: umbra, tags: ["TypeScript", "Rapier", "MCP"], tile: "Simulate · Search · Replay" },
   {
     slug: "thuoctracker",
     content: thuocTracker,
