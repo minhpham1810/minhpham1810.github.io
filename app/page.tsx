@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { projects } from "@/lib/projects";
-import { experience, links, openSource, toolkit } from "@/lib/site";
+import { certifications, experience, links, openSource, toolkit } from "@/lib/site";
 
 const pill =
   "glass rounded-full px-5 py-3 transition duration-200 hover:-translate-y-0.5 hover:text-accent";
@@ -296,6 +296,26 @@ export default function Home() {
             </li>
           ))}
         </ol>
+      </section>
+
+      <section aria-labelledby="certifications" className="shell py-16 sm:py-24">
+        <SectionHeading id="certifications" label="Certifications" title="Certifications & learning" />
+        <ul className="grid gap-5 md:grid-cols-2">
+          {certifications.map((credential) => (
+            <li key={credential.name} className="glass flex flex-col p-7 sm:p-8">
+              <p className="label">{credential.issuer} · {credential.kind}</p>
+              <h3 className="mt-3 text-lg font-semibold leading-snug">{credential.name}</h3>
+              <p className="mt-3 text-sm leading-6 text-ink/75">
+                Issued {credential.issued}
+                {credential.expires && <span className="block">Expires {credential.expires}</span>}
+              </p>
+              <a href={credential.url} target="_blank" rel="noopener noreferrer"
+                className="mt-5 inline-block self-start text-sm text-ink underline decoration-ink/25 underline-offset-4 transition-colors hover:text-accent">
+                {credential.linkLabel} ↗
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section aria-labelledby="about" className="shell py-16 sm:py-24">
