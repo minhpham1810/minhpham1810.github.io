@@ -303,6 +303,21 @@ export default function Home() {
         <ul className="grid gap-5 md:grid-cols-2">
           {certifications.map((credential) => (
             <li key={credential.name} className="glass flex flex-col p-7 sm:p-8">
+              <a href={credential.url} target="_blank" rel="noopener noreferrer"
+                aria-label={`View ${credential.name}`}
+                className="mb-6 flex h-36 items-center justify-center rounded-xl border border-ink/10 bg-white">
+                {credential.image ? (
+                  // Official credential artwork is stored with the static site.
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={credential.image} alt={`${credential.name} badge`} width={672} height={352}
+                    loading="lazy" className="h-32 w-full object-contain" />
+                ) : (
+                  <span className="text-center text-[#10162f]">
+                    <span className="block font-mono text-4xl font-semibold">{credential.monogram}</span>
+                    <span className="mt-2 block text-xs">Codecademy course</span>
+                  </span>
+                )}
+              </a>
               <p className="label">{credential.issuer} · {credential.kind}</p>
               <h3 className="mt-3 text-lg font-semibold leading-snug">{credential.name}</h3>
               <p className="mt-3 text-sm leading-6 text-ink/75">

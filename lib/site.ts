@@ -222,7 +222,9 @@ export const certifications = [
     "issued": "Nov 11, 2026",
     "expires": "Nov 11, 2029",
     "url": "https://www.credly.com/badges/ca65ae75-db99-411c-b7d2-dbe27ebde3ea",
-    "linkLabel": "View credential"
+    "linkLabel": "View credential",
+    "image": "/assets/certifications/google-cloud.png",
+    "monogram": null
   },
   {
     "name": "Backend Engineer Learning Path",
@@ -231,7 +233,9 @@ export const certifications = [
     "issued": "Jul 26, 2026",
     "expires": null,
     "url": "https://www.credly.com/badges/230b29a0-2fb3-4410-876f-e355b23e2802",
-    "linkLabel": "View credential"
+    "linkLabel": "View credential",
+    "image": "/assets/certifications/datadog.png",
+    "monogram": null
   },
   {
     "name": "Building AI Agents with MongoDB",
@@ -240,7 +244,9 @@ export const certifications = [
     "issued": "Oct 2, 2025",
     "expires": null,
     "url": "https://www.credly.com/badges/8979d628-a52e-43c5-abca-a08c016f2174",
-    "linkLabel": "View credential"
+    "linkLabel": "View credential",
+    "image": "/assets/certifications/mongodb.png",
+    "monogram": null
   },
   {
     "name": "LFC102: Inclusive Open Source Community Orientation",
@@ -249,7 +255,9 @@ export const certifications = [
     "issued": "Aug 6, 2026",
     "expires": null,
     "url": "https://www.credly.com/badges/77db0f35-6537-4a29-9193-5d8958168f32",
-    "linkLabel": "View credential"
+    "linkLabel": "View credential",
+    "image": "/assets/certifications/linux-foundation.png",
+    "monogram": null
   },
   {
     "name": "Learn Intermediate TypeScript Course",
@@ -258,7 +266,9 @@ export const certifications = [
     "issued": "Jun 2026",
     "expires": null,
     "url": "https://www.linkedin.com/in/khoaminhpham18/",
-    "linkLabel": "Listed on LinkedIn"
+    "linkLabel": "Listed on LinkedIn",
+    "image": null,
+    "monogram": "TS"
   },
   {
     "name": "Learn Go Course",
@@ -267,6 +277,8 @@ export const certifications = [
     "issued": "Feb 2026",
     "expires": null,
     "url": "https://www.linkedin.com/in/khoaminhpham18/",
-    "linkLabel": "Listed on LinkedIn"
+    "linkLabel": "Listed on LinkedIn",
+    "image": null,
+    "monogram": "Go"
   }
 ];
