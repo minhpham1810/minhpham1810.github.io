@@ -12,6 +12,8 @@ In merged PR #5, I added local setup instructions, dependency tracking, and a la
 
 In merged PR #25, I built a notebook that counts places in the 1577 text by monarch's reign. It normalizes early-modern spellings, groups duplicate place entries, and filters misleading mentions such as source citations in margin notes and personal titles like "Duke of Yorke". The notebook identifies the most frequent place in each reign and plots patterns across reigns.
 
+In merged PR #26, I consolidated place counting into a reusable Python module. It loads per-reign TEI files or a combined regnal document, removes notes, filters names by confidence, optionally excludes personal titles, and combines historical spellings through an alias table.
+
 ## Engineering decisions
 
 - Parse the TEI structure to preserve reign boundaries and remove margin notes before counting.
@@ -27,6 +29,7 @@ Python, pandas, lxml, regular expressions, Jupyter, Matplotlib, and TEI/XML.
 
 - [View the research repository](https://github.com/holinshed-project/DCDS-Fa2026)
 - [Merged setup contribution #5](https://github.com/holinshed-project/DCDS-Fa2026/pull/5)
-- [Merged place-frequency analysis #25](https://github.com/holinshed-project/DCDS-Fa2026/pull/25)`;
+- [Merged place-frequency analysis #25](https://github.com/holinshed-project/DCDS-Fa2026/pull/25)
+- [Merged reusable counting module #26](https://github.com/holinshed-project/DCDS-Fa2026/pull/26)`;
 
 export default content;

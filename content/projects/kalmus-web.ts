@@ -14,6 +14,8 @@ Built with a three-person team under a faculty mentor. My work includes the web 
 
 The browser uploads large video files in chunks. Next.js API routes assemble the upload and generate a SLURM batch script. A compute node runs the Python analysis, then writes metadata, summaries, color barcodes, and visualization data to shared NFS storage. The frontend polls job state and renders the completed outputs with Plotly.js. A shared SQLite film catalog supports search, edition metadata, duplicate detection, and admin curation.
 
+Recent team updates add film selection and year and brightness filters to the interactive film map, plus a Most-vivid color metric for analysis.
+
 ## Film requests
 
 I added a request queue so visitors can propose a film without uploading a video. Requests save the edition, barcode settings, and sampling configuration; matching film, edition, and analysis requests are grouped with a subscriber count. Administrators review requests and open a prefilled upload form when accepting one. The queue tracks submitted jobs and emails subscribers when a request is accepted, declined, or completed.

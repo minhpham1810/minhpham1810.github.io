@@ -31,6 +31,8 @@ Query classification, conversation summarization, and user-context extraction im
 
 In [open PR #3](https://github.com/Bucknell-OIRA/OIRA-Chatbot/pull/3), I reorganized the backend into typed FastAPI routes, services, repositories, and dependency injection. The proposal retains the existing chat, citation, streaming, session, feedback, and schedule interfaces. This work is under review and has not been merged.
 
+Earlier proposals were closed without merging: [PR #1](https://github.com/Bucknell-OIRA/OIRA-Chatbot/pull/1) extracted shared JSON parsing helpers and made citation PDF URLs configurable; [PR #2](https://github.com/Bucknell-OIRA/OIRA-Chatbot/pull/2) separated routes, settings, database access, and retrieval ingestion into modules with compatibility wrappers. These proposals are not part of the merged implementation.
+
 ## Demo
 
 ![video](oira_chatbot_demo.mp4)

@@ -14,7 +14,7 @@ type Contribution = {
   url: string;
 };
 
-// PR statuses checked November 9, 2026
+// PR statuses checked November 16, 2026
 export const openSource: Contribution[] = [
   {
     status: "merged",
