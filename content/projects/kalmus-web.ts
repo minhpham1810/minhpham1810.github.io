@@ -20,6 +20,8 @@ Recent team updates add film selection and year and brightness filters to the in
 
 I added a request queue so visitors can propose a film without uploading a video. Requests save the edition, barcode settings, and sampling configuration; matching film, edition, and analysis requests are grouped with a subscriber count. Administrators review requests and open a prefilled upload form when accepting one. The queue tracks submitted jobs and emails subscribers when a request is accepted, declined, or completed.
 
+I extended the workflow with public and admin archives for completed or declined requests, keeping active queues focused on unfinished work. Saved requests remain readable when their analysis options are retired, preserving the original configuration.
+
 ## Engineering decisions
 
 - Upload videos in four concurrent requests with 5–25 MB chunks, cutting batch upload time by an estimated 30% while allowing individual request recovery.
